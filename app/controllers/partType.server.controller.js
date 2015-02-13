@@ -13,7 +13,6 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var PartType = new PartType(req.body);
-	//PartType.user = req.user;
 
 	PartType.save(function(err) {
 		if (err) {

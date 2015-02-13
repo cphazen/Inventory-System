@@ -11,8 +11,8 @@ var mongoose = require('mongoose'),
 
 var InventorySchema = new Schema({
 	Type: {
-		type: Schema.ObjectId,
-		ref: Parts,
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Parts',
 		required: 'You need to choose a part type'
 	},
 	quantity: {

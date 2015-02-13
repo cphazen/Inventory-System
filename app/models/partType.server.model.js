@@ -19,7 +19,7 @@ var partTypeSchema = new Schema({
 	partName: {
 		type: String,
 		default: '',
-		trim: true
+		trim: true,
 		required: 'Part must have a name'
 	},
 	Vendor: {
@@ -40,7 +40,7 @@ var partTypeSchema = new Schema({
 	mnfPartNmbr: {
 		type: String,
 		default: 'N/A',
-		trim true
+		trim: true
 	},
 	price: {
 		type: Number,
@@ -49,7 +49,7 @@ var partTypeSchema = new Schema({
 	},
 	amount: {
 		type: Number,
-		default: 1
+		default: 1,
 		required: 'Part must have an amount'
 	}
 });
