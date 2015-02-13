@@ -5,7 +5,7 @@
  */
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
-	PartType = mongoose.model('PartType'),
+	PartType = mongoose.model('Inventory'),
 	_ = require('lodash');
 
 /**
@@ -108,12 +108,12 @@ exports.PartTypeByID = function(req, res, next, id) {
 
 /**
  * PartType authorization middleware
- */
+ 
 exports.hasAuthorization = function(req, res, next) {
 	/*if (req.PartType.user.id !== req.user.id) {
 		return res.status(403).send({
 			message: 'User is not authorized'
 		});
-	}*/
+	}
 	next();
-};
+};*/

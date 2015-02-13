@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('parts').controller('PartsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Parts',
-	function($scope, $stateParams, $location, Authentication, parts) {
-		$scope.authentication = Authentication;
+angular.module('inventory').controller('inventoryController', ['$scope', '$stateParams', '$location', 'Authentication', 'Inventory',
+	function($scope, $stateParams, $location, Authentication, Inventory) {
+		//$scope.authentication = Authentication;
 
-		$scope.create = function() {
+		$scope.addPart = function() {
 			var part = new Parts({
 				title: this.title
 			});
@@ -17,7 +17,7 @@ angular.module('parts').controller('PartsController', ['$scope', '$stateParams',
 			});
 		};
 
-		$scope.remove = function(part) {
+		$scope.removePart = function(part) {
 			if (part) {
 				part.$remove();
 
@@ -33,7 +33,7 @@ angular.module('parts').controller('PartsController', ['$scope', '$stateParams',
 			}
 		};
 
-		$scope.update = function() {
+		$scope.createPart = function() {
 			var part = $scope.part;
 
 			part.$update(function() {
@@ -43,11 +43,11 @@ angular.module('parts').controller('PartsController', ['$scope', '$stateParams',
 			});
 		};
 
-		$scope.find = function() {
+		$scope.editPart = function() {
 			$scope.parts = parts.query();
 		};
 
-		$scope.findOne = function() {
+		$scope.listInventory = function() {
 			$scope.part = parts.get({
 				partId: $stateParams.partId
 			});
