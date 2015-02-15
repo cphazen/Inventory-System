@@ -11,7 +11,22 @@ module.exports = function(app) {
 		.get(inventory.list)
 		.post(inventory.create);
 
-	app.route('/parts/:id')
+	app.route('/inventory/add')
+		.get(inventory.read)
+		.put(inventory.update)
+		.delete(inventory.delete);
+
+	app.route('/inventory/remove')
+		.get(inventory.read)
+		.put(inventory.update)
+		.delete(inventory.delete);
+
+	app.route('/inventory/create')
+		.get(inventory.read)
+		.put(inventory.update)
+		.delete(inventory.delete);
+
+	app.route('/inventory/edit')
 		.get(inventory.read)
 		.put(inventory.update)
 		.delete(inventory.delete);

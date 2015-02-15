@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('inventory').controller('inventoryController', ['$scope', '$stateParams', '$location', 'Authentication', 'Inventory',
-	function($scope, $stateParams, $location, Authentication, Inventory) {
+angular.module('inventory').controller('inventoryController', ['$scope', '$stateParams', '$location', 'Inventory',
+	function($scope, $stateParams, $location, Inventory) {
 		//$scope.authentication = Authentication;
 
 		$scope.addPart = function() {
