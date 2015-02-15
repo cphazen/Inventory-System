@@ -11,11 +11,11 @@ angular.module('inventory').config(['$stateProvider', '$urlRouterProvider',
 			templateUrl: 'modules/inventory/views/add.client.view.html'
 		}).
 		state('removePart', {
-			url: '/parts/remove',
+			url: '/inventory/remove',
 			templateUrl: 'modules/inventory/views/remove.client.view.html'
 		}).
 		state('createPart', {
-			url: '/parts/create',
+			url: '/inventory/create',
 			templateUrl: 'modules/inventory/views/create.client.view.html'
 		}).
 		state('editPart', {

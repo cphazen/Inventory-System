@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('inventory').controller('inventoryController', ['$scope', '$stateParams', '$location', 'Inventory',
-	function($scope, $stateParams, $location, Inventory) {
+angular.module('inventory').controller('inventoryController', ['$scope', '$stateParams', '$location', 'Inventory', 'Parts', 'PartType',
+	function($scope, $stateParams, $location, Inventory, Parts, PartType) {
 		//$scope.authentication = Authentication;
 
 		$scope.addPart = function() {
@@ -34,21 +34,20 @@ angular.module('inventory').controller('inventoryController', ['$scope', '$state
 		};
 
 		$scope.createPart = function() {
-			var part = $scope.part;
-
-			part.$update(function() {
-				$location.path('parts/' + part._id);
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
+			var part_type = new PartType({
+				Category : this.Category,
+				
 			});
+
+			
 		};
 
 		$scope.editPart = function() {
-			$scope.parts = parts.query();
+			//$scope.parts = parts.query();
 		};
 
 		$scope.listInventory = function() {
-			$scope.part = parts.get({
+			$scope.part = Parts.get({
 				partId: $stateParams.partId
 			});
 		};

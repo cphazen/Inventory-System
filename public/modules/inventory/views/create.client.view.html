@@ -1,15 +1,25 @@
-<section data-ng-controller="PartsController" data-ng-init="find()">
+<section data-ng-controller="inventoryController" data-ng-init="find()">
 	<div class="page-header">
-		<h1>Parts</h1>
+		<h1>New Part</h1>
 	</div>
-	<div class="list-group">
-		<a data-ng-repeat="part in Parts" data-ng-href="#!/parts/{{parts._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				<span data-ng-bind="part.title"></span>
-			</small>
-		</a>
-	</div>
-	<div class="alert alert-warning text-center" data-ng-if="parts.$resolved && !parts.length">
-		No Parts yet, why don't you <a href="/#!/parts/create">create one</a>?
+	<div>
+		<form>
+			Category:<br>
+			<input type = "radio" name = "Category" value = "maincomponent" checked>  Main Component<br>
+			<input type = "radio" name = "Category" value = "fastener">  Fasteners and Mounting Hardware<br>
+			<input type = "radio" name = "Category" value = "cable">  Cables and Wires<br>
+			<input type = "radio" name = "Category" value = "label">  K-sun Labels<br>
+			<input type = "radio" name = "Category" value = "external">  External Components<br>
+			<br>
+			Part Name:  <input type = "text" name = "partName"><br>
+			<br>
+			Vendor:  <input type = "text" name = "Vendor"><br>
+			<br>
+			Vendor Part Number:  <input type = "text" name = "vndrPartNmbr"><br>
+			<br>
+			Manufacturer:  <input type = "text" name = "Manufacturer"><br>
+			<br>
+			
+		</form>
 	</div>
 </section>
