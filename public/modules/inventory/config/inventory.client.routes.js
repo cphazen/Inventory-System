@@ -2,7 +2,7 @@
 
 // Setting up route
 //routes: add part, remove part, create part, edit part
-angular.module('inventory').config(['$stateProvider', '$urlRouterProvider'
+angular.module('inventory').config(['$stateProvider', '$urlRouterProvider',
 	function($stateProvider) {
 		// inventory state routing
 		$stateProvider.
