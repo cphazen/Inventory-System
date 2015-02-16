@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
  * Part type schema
  */
 var partTypeSchema = new Schema({
-	Category: {
+	category: {
 		type: String,
 		default: 'N/A',
 		trim: true,
@@ -22,7 +22,7 @@ var partTypeSchema = new Schema({
 		trim: true,
 		required: 'Part must have a name'
 	},
-	Vendor: {
+	vendor: {
 		type: String,
 		default: 'N/A',
 		trim: true
@@ -32,7 +32,7 @@ var partTypeSchema = new Schema({
 		default: 'N/A',
 		trim: true
 	},
-	Manufacturer: {
+	manufacturer: {
 		type: String,
 		default: 'N/A',
 		trim: true
