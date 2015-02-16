@@ -4,26 +4,43 @@
 	</div>
 	<div>
 		<form>
-			Category:<br>
-			<input type = "radio" name = "Category" value = "maincomponent" checked>  Main Component<br>
-			<input type = "radio" name = "Category" value = "fastener">  Fasteners and Mounting Hardware<br>
-			<input type = "radio" name = "Category" value = "cable">  Cables and Wires<br>
-			<input type = "radio" name = "Category" value = "label">  K-sun Labels<br>
-			<input type = "radio" name = "Category" value = "external">  External Components<br>
-			<br>
-			Part Name:  <input type = "text" name = "partName"><br>
-			<br>
-			Vendor:  <input type = "text" name = "Vendor"><br>
-			<br>
-			Vendor Part Number:  <input type = "text" name = "vndrPartNmbr"><br>
-			<br>
-			Manufacturer:  <input type = "text" name = "Manufacturer"><br>
-			<br>
-			Manufacturer Part Number:  <input type = "text" name = "mnfPartNmbr"><br>
-			<br>
-			Price (US Dollars):  <input type = "text" name = "price"><br>
-			<br>
-			Quantity (per system):  <input type = "text" name = "amount"><br>  
+			<div class="form-group">
+			<strong>Category:</strong>
+			<div class="radio">
+				<label><input type = "radio" name = "Category" value = "maincomponent" id="category1" checked> Main Component</label>
+				<label><input type = "radio" name = "Category" value = "fastener" id="category2"> Fasteners and Mounting Hardware</label>
+				<label><input type = "radio" name = "Category" value = "cable" id="category3">  Cables and Wires </label>
+				<label><input type = "radio" name = "Category" value = "label" id="category4"> K-sun Labels </label>
+				<label><input type = "radio" name = "Category" value = "external" id="category5"> External Components</label>
+				<!--<label for="category">Category</label>
+				<select id="category">
+					<option value="maincomponent">Main Component</option>
+					<option value="fastener">Fasteners and Mounting Hardware</option>
+					<option value="cable">Cables and Wires</option>
+				</select>-->
+			</div>
+			<div class="form-group">
+				<label for="partName">Part Name: </label><input class="form-control" ng-model="partName" type="text" name="partName" id="partName" />
+				{{partName}}
+			</div>
+			<div class="form-group">	
+				<label for="vendor">Vendor: </label><input class="form-control" type="text" name="Vendor" id="vendor" />
+			</div>
+			<div class="form-group">
+				<label for="vndrPartNmbr">Vendor Part Number: </label><input class="form-control" type="text" name="vndrPartNmbr" id="vndrPartNmbr" />
+			</div>
+			<div class="form-group">
+				<label for="manufacturer">Manufacturer: </label><input class="form-control" type="text" name="Manufacturer" id="manufacturer"/>
+			</div>
+			<div class="form-group">
+				<label for="mnfPartNmbr">Manufacturer Part Number: </label> <input class="form-control" type="text" name="mnfPartNmbr" id="mnfPartNmbr" />
+			</div>
+			<div class="form-group">
+				<label for="price">Price (US Dollars): </label> <input class="form-control" type="text" name="price" id="price" />
+			</div>
+			<div class="form-group">
+				<label for="amount">Quantity (per system):  <input class="form-control" type="text" name="amount" id="amount" />
+			</div>
 		</form>
 	</div>
 </section>
