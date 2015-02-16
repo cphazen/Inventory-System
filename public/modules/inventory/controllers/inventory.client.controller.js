@@ -57,7 +57,7 @@ angular.module('inventory').controller('inventoryController', ['$scope', '$state
 				$scope.mnfPartNmbr = '';
 				$scope.price = '';
 				$scope.amount = '';
-		    })
+		    });
         };
 
 		$scope.editPart = function() {
