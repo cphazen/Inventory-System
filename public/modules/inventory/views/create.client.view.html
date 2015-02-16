@@ -1,0 +1,29 @@
+<section data-ng-controller="inventoryController" data-ng-init="find()">
+	<div class="page-header">
+		<h1>New Part</h1>
+	</div>
+	<div>
+		<form>
+			Category:<br>
+			<input type = "radio" name = "Category" value = "maincomponent" checked>  Main Component<br>
+			<input type = "radio" name = "Category" value = "fastener">  Fasteners and Mounting Hardware<br>
+			<input type = "radio" name = "Category" value = "cable">  Cables and Wires<br>
+			<input type = "radio" name = "Category" value = "label">  K-sun Labels<br>
+			<input type = "radio" name = "Category" value = "external">  External Components<br>
+			<br>
+			Part Name:  <input type = "text" name = "partName"><br>
+			<br>
+			Vendor:  <input type = "text" name = "Vendor"><br>
+			<br>
+			Vendor Part Number:  <input type = "text" name = "vndrPartNmbr"><br>
+			<br>
+			Manufacturer:  <input type = "text" name = "Manufacturer"><br>
+			<br>
+			Manufacturer Part Number:  <input type = "text" name = "mnfPartNmbr"><br>
+			<br>
+			Price (US Dollars):  <input type = "text" name = "price"><br>
+			<br>
+			Quantity (per system):  <input type = "text" name = "amount"><br>  
+		</form>
+	</div>
+</section>

@@ -5,116 +5,115 @@
  */
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
-	Article = mongoose.model('Article'),
+	Inventory = mongoose.model('Inventory'),
 	_ = require('lodash');
 
 /**
- * Create a article
+ * Create a PartType
  */
 exports.create = function(req, res) {
-	var article = new Article(req.body);
-	article.user = req.user;
+	var PartType = new PartType(req.body);
 
-	article.save(function(err) {
+	PartType.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(article);
+			res.json(PartType);
 		}
 	});
 };
 
 /**
- * Show the current article
+ * Show the current PartType
  */
 exports.read = function(req, res) {
-	res.json(req.article);
+	res.json(req.PartType);
 };
 
 /**
- * Update a article
+ * Update a PartType
  */
 exports.update = function(req, res) {
-	var article = req.article;
+	var PartType = req.PartType;
 
-	article = _.extend(article, req.body);
+	PartType = _.extend(PartType, req.body);
 
-	article.save(function(err) {
+	PartType.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(article);
+			res.json(PartType);
 		}
 	});
 };
 
 /**
- * Delete an article
+ * Delete an PartType
  */
 exports.delete = function(req, res) {
-	var article = req.article;
+	var PartType = req.PartType;
 
-	article.remove(function(err) {
+	PartType.remove(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(article);
+			res.json(PartType);
 		}
 	});
 };
 
 /**
- * List of Articles
+ * List of PartTypes
  */
 exports.list = function(req, res) {
-	Article.find().sort('-created').populate('user', 'displayName').exec(function(err, articles) {
+	PartType.find().sort('-created')/*.populate('user', 'displayName')*/.exec(function(err, PartTypes) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(articles);
+			res.json(PartTypes);
 		}
 	});
 };
 
 /**
- * Article middleware
+ * PartType middleware
  */
-exports.articleByID = function(req, res, next, id) {
+exports.PartTypeByID = function(req, res, next, id) {
 
 	if (!mongoose.Types.ObjectId.isValid(id)) {
 		return res.status(400).send({
-			message: 'Article is invalid'
+			message: 'PartType is invalid'
 		});
 	}
 
-	Article.findById(id).populate('user', 'displayName').exec(function(err, article) {
+	PartType.findById(id)/*.populate('user', 'displayName')*/.exec(function(err, PartType) {
 		if (err) return next(err);
-		if (!article) {
+		if (!PartType) {
 			return res.status(404).send({
-  				message: 'Article not found'
+  				message: 'PartType not found'
   			});
 		}
-		req.article = article;
+		req.PartType = PartType;
 		next();
 	});
 };
 
 /**
- * Article authorization middleware
- */
+ * PartType authorization middleware
+ 
 exports.hasAuthorization = function(req, res, next) {
-	if (req.article.user.id !== req.user.id) {
+	/*if (req.PartType.user.id !== req.user.id) {
 		return res.status(403).send({
 			message: 'User is not authorized'
 		});
 	}
 	next();
-};
+};*/
