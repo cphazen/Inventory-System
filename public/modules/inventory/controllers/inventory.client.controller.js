@@ -33,13 +33,30 @@ angular.module('inventory').controller('inventoryController', ['$scope', '$state
 			}
 		};
 
+		/*create a part type*/
 		$scope.createPart = function() {
 			var part_type = new PartType({
 				Category : this.Category,
-				
+				partName : this.partName,
+				Vendor : this.Vendor,
+				vndrPartNmbr : this.vndrPartNmbr,
+				Manufacturer : this.Manufacturer,
+				mnfPartNmbr : this.mnfPartNmbr,
+				price : parseFloat(this.price),
+				amount : parseFloat(this.amount)
 			});
-
+			//redirect after saving
+			event.$save(function(response){
+				$location.path('/inventory/');
 			
+				//clear the fields
+				$scope.partName = '';
+				$scope.Vendor = '';
+				$scope.vndrPartNmbr = '';
+				$scope.Manufacturer = '';
+				$scope.mnfPartNmbr = '';
+				$scope.price = '';
+				$scope.amount = '';
 		};
 
 		$scope.editPart = function() {
