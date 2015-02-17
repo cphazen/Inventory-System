@@ -25,11 +25,38 @@ mongoose.connection.on('error', function(err) {
 	}
 );
 
+
+
 // Init the express application
 var app = require('./config/express')(db);
 
 // Bootstrap passport config
 require('./config/passport')();
+
+/////////////////////////////////////////////////////////////
+////////////// Populate mongoDB with data ///////////////////
+/////////////////////////////////////////////////////////////
+var PartType    = mongoose.model('PartType'),
+    Inventory   = mongoose.model('Inventory'),
+    data        = require('./data/partType.json');
+
+/* For each partType */
+for(var i = 0; i < data.length; i++ ){
+    /* Save partType */
+    var partType = new PartType(data[i]);
+    partType.save(function (err, partType){
+        if (err) console.log(err);
+        //else console.log(partType + ' added to database');
+    });
+
+    /* Save partType to inventory */
+    var inventory = new Inventory({ Type: partType._id, quantity:  0});
+    inventory.save(function (err, inventory){
+        if (err) console.log(err);
+        //else console.log(inventory._id + ' added to database');
+    });
+}
+/////////////////////////////////////////////////////////////
 
 // Start the app by listening on <port>
 app.listen(config.port);

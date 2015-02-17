@@ -3,18 +3,19 @@
 /**
  * Module dependencies.
  */
-var mongoose = require('mongoose'),
-	errorHandler = require('./errors.server.controller'),
-	Inventory = mongoose.model('Inventory'),
-	_ = require('lodash');
+var mongoose        = require('mongoose'),
+	errorHandler    = require('./errors.server.controller'),
+    PartType        = mongoose.model('PartType'),
+	Inventory       = mongoose.model('Inventory'),
+	_               = require('lodash');
 
 /**
  * Create a PartType
  */
 exports.create = function(req, res) {
-	var PartType = new PartType(req.body);
+	var partType = new PartType(req.body);
 
-	PartType.save(function(err) {
+	partType.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -36,17 +37,17 @@ exports.read = function(req, res) {
  * Update a PartType
  */
 exports.update = function(req, res) {
-	var PartType = req.PartType;
+	var partType = req.PartType;
 
-	PartType = _.extend(PartType, req.body);
+	partType = _.extend(PartType, req.body);
 
-	PartType.save(function(err) {
+	partType.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(PartType);
+			res.json(partType);
 		}
 	});
 };
@@ -55,15 +56,15 @@ exports.update = function(req, res) {
  * Delete an PartType
  */
 exports.delete = function(req, res) {
-	var PartType = req.PartType;
+	var partType = req.PartType;
 
-	PartType.remove(function(err) {
+	partType.remove(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(PartType);
+			res.json(partType);
 		}
 	});
 };
@@ -86,7 +87,7 @@ exports.list = function(req, res) {
 /**
  * PartType middleware
  */
-exports.PartTypeByID = function(req, res, next, id) {
+exports.partTypeByID = function(req, res, next, id) {
 
 	if (!mongoose.Types.ObjectId.isValid(id)) {
 		return res.status(400).send({
@@ -94,14 +95,14 @@ exports.PartTypeByID = function(req, res, next, id) {
 		});
 	}
 
-	PartType.findById(id)/*.populate('user', 'displayName')*/.exec(function(err, PartType) {
+	PartType.findById(id)/*.populate('user', 'displayName')*/.exec(function(err, partType) {
 		if (err) return next(err);
-		if (!PartType) {
+		if (!partType) {
 			return res.status(404).send({
   				message: 'PartType not found'
   			});
 		}
-		req.PartType = PartType;
+		req.PartType = partType;
 		next();
 	});
 };

@@ -9,7 +9,7 @@ angular.module('inventory').controller('inventoryController', ['$scope', '$state
 				title: this.title
 			});
 			part.$save(function(response) {
-				$location.path('parts/' + response._id);
+				$location.path('inventory/' + response._id);
 
 				$scope.title = '';
 			}, function(errorResponse) {
@@ -57,7 +57,8 @@ angular.module('inventory').controller('inventoryController', ['$scope', '$state
 				$scope.mnfPartNmbr = '';
 				$scope.price = '';
 				$scope.amount = '';
-		};
+		    });
+        };
 
 		$scope.editPart = function() {
 			//$scope.parts = parts.query();
