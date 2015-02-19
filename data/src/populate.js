@@ -3,7 +3,6 @@
 /////////////////////////////////////////////////////////////
 var mongoose    = require('mongoose'),
     PartType    = mongoose.model('PartType'),
-    System	    = mongoose.model('System'),
     data        = require('../partType.json');
 
 var err, el;

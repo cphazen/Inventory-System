@@ -72,4 +72,5 @@
 {"Category":"External Component","partName":"AC Power Cable","Vendor":"Digi-Key","vndrPartNmbr":"T1249-C13-NA","Manufacturer":"CUI Inc","mnfPartNmbr":"AC-C13-NA","price":9.57,"GX5_amount":1, "GX35_amount":1, "quantity":0},
 {"Category":"External Component","partName":"6.56' (2m) USB-A to USB-B Cord","Vendor":"Digi-Key","vndrPartNmbr":"AE1493-ND","Manufacturer":"Assmann WSW Components","mnfPartNmbr":"AK672/2-2-R","price":2.77,"GX5_amount":1, "GX35_amount":1, "quantity":0},
 {"Category":"External Component","partName":"34\" Probe Cable (Non-Magnetic)","Vendor":"SpinCore","vndrPartNmbr":"CC-5","Manufacturer":"A&M Electronics","mnfPartNmbr":"N/A","price":0,"GX5_amount":1, "GX35_amount":0, "quantity":0},
-{"Category":"External Component","partName":"Lambda-Quarter Cable","Vendor":"SpinCore","vndrPartNmbr":"CC-23","Manufacturer":"A&M Electronics","mnfPartNmbr":"N/A","price":0,"GX5_amount":1, "GX35_amount":0, "quantity":0},
+{"Category":"External Component","partName":"Lambda-Quarter Cable","Vendor":"SpinCore","vndrPartNmbr":"CC-23","Manufacturer":"A&M Electronics","mnfPartNmbr":"N/A","price":0,"GX5_amount":1, "GX35_amount":0, "quantity":0}
+]

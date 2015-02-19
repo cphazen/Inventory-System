@@ -6,7 +6,6 @@
 var mongoose        = require('mongoose'),
 	errorHandler    = require('./errors.server.controller'),
     PartType        = mongoose.model('PartType'),
-	Inventory       = mongoose.model('Inventory'),
 	_               = require('lodash');
 
 /**
