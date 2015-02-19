@@ -65,7 +65,7 @@ angular.module('inventory').controller('inventoryController', ['$scope', '$state
 		};
 
 		$scope.listInventory = function() {
-			$scope.part = Parts.get({
+			$scope.part = ({
 				partId: $stateParams.partId
 			});
 		};

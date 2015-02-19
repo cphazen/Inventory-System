@@ -3,7 +3,7 @@
 /////////////////////////////////////////////////////////////
 var mongoose    = require('mongoose'),
     PartType    = mongoose.model('PartType'),
-    Inventory   = mongoose.model('Inventory'),
+    System	    = mongoose.model('System'),
     data        = require('../partType.json');
 
 var err, el;
@@ -21,9 +21,6 @@ PartType.count({}, function(err, count){
             /* Save partType */
             var partType = new PartType(data[i]);
             partType.save(errorHandler(err, partType));
-            /* Save partType to inventory */
-            var inventory = new Inventory({ Type: partType._id, quantity: 0});
-            inventory.save(errorHandler(err, inventory));
         }
         console.log('MongoDB has been populated...');
     } else {

@@ -6,19 +6,24 @@
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 /*
-	schema for creating an inventory, associates a part type with a quantity
+	schema for system
 */
 
-var InventorySchema = new Schema({
+var SystemSchema = new Schema({
+	System: {
+		type: String,
+		default '',
+		trim: true
+	},
 	Type: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'PartType',
 		required: 'You need to choose a part type'
 	},
-	quantity: {
+	amount: {
 		type: Number,
 		default: 0
 	}
 });
 
-mongoose.model('Inventory', InventorySchema);
+mongoose.model('System', InventorySchema);
