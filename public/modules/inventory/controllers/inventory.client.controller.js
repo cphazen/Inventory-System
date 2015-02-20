@@ -65,9 +65,7 @@ angular.module('inventory').controller('inventoryController', ['$scope', '$state
 		};
 
 		$scope.listInventory = function() {
-			$scope.part = ({
-				partId: $stateParams.partId
-			});
+			$scope.part_type = partType.query();
 		};
 	}
 ]);

@@ -19,7 +19,7 @@ PartType.count({}, function(err, count){
         for(var i = 0; i < data.length; i++ ){
             /* Save partType */
             var partType = new PartType(data[i]);
-            partType.save(errorHandler(err, partType));
+            partType.$save(errorHandler(err, partType));
         }
         console.log('MongoDB has been populated...');
     } else {
