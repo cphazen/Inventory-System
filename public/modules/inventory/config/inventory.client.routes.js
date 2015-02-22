@@ -17,6 +17,10 @@ angular.module('inventory').config(['$stateProvider', '$urlRouterProvider',
 		state('listInventory', {
 			url: '/inventory',
 			templateUrl: 'modules/inventory/views/inventory.client.view.html'
+		}).
+		state('addInventory', {
+			url: '/inventory/add/:partId',
+			templateUrl: 'modules/inventory/views/add.client.view.html'
 		});
 	}
 ]);

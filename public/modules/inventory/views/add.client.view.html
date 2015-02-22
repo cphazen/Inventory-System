@@ -1,0 +1,18 @@
+<div>
+	<div class="modal-header">
+		<h2 class="modal-title">Add a part</h2>
+	</div>
+	<div class="modal-body">
+		<form>
+			<div class="form-group" ng-init="parts.type = partId">
+				<label for="serialNmbr">Serial Number: </label>
+				<div><input type="text" name="serialNmbr" id="serialNmbr" class="form-control" ng-model="parts.serialNmbr" /></div>
+			</div>
+			<div class="form-group">
+				<label for="firmWare">Firmware: </label>
+				<div><input type="text" name="serialNmbr" id="serialNmbr" class="form-control" ng-model="parts.firmWare"/></div>
+			</div>
+			<button type="submit" class="btn btn-primary" ng-click="">Add part</button>
+		</form>
+	</div>
+</div>

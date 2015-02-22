@@ -19,11 +19,11 @@ var partSchema = new Schema({
 		default: '',
 		trim: true
 	},
-	Type: {
+	type: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'PartType',
 		required: 'Part must have a type'
 	}
 });
-
+partSchema.set('collection', 'parts');
 mongoose.model('Parts', partSchema);

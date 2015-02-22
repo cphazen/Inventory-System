@@ -60,6 +60,14 @@ var partTypeSchema = new Schema({
 	quantity: {
 		type: Number,
 		default: 0
+	},
+	hasSerialNmbr: {
+		type: Boolean,
+		default: false
+	},
+	hasFirmWare: {
+		type: Boolean,
+		default: false
 	}
 });
 

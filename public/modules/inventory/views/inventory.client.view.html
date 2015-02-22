@@ -29,7 +29,11 @@
 				<td>{{partType.price}}</td>
 				<td ng-class="{'dull-field': partType.GX5_amount == '0'}">{{partType.GX5_amount}}</td>
 				<td ng-class="{'dull-field': partType.GX35_amount == '0'}">{{partType.GX35_amount}}</td>
-				<td><a class="btn btn-default btn-xs" ng-class="{disabled: partType.quantity <= 0}"  ng-click="updateQuantity(partType, partType.quantity - 1)">&minus;</a> {{partType.quantity}} <a class="btn btn-default btn-xs" ng-click="updateQuantity(partType, partType.quantity + 1)">&plus;</a></td>
+				<td>
+					<a class="btn btn-default btn-xs" ng-class="{disabled: partType.quantity <= 0}"  ng-click="updateQuantity(partType, partType.quantity - 1)">&minus;</a>
+					{{partType.quantity}} 
+					<a class="btn btn-default btn-xs" ng-click="updateQuantity(partType, partType.quantity + 1)">&plus;</a>
+				</td>
 			</tr>
 		</tbody>
     </table>
