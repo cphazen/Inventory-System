@@ -2,9 +2,9 @@
 
 module.exports = {
 	app: {
-		title: 'MEAN.JS',
-		description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js',
-		keywords: 'mongodb, express, angularjs, node.js, mongoose, passport'
+		title: 'Inventory System',
+		description: 'GX-5 and GX-35 parts',
+		keywords: ''
 	},
 	port: process.env.PORT || 3000,
 	templateEngine: 'swig',
