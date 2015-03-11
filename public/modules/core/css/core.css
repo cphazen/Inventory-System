@@ -30,3 +30,7 @@ body.ng-cloak
 .dull-field{
 	opacity:.5;
 }
+
+.dropdown-toggle {
+    cursor: pointer;
+}

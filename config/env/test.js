@@ -19,7 +19,7 @@ module.exports = {
 		}
 	},
 	app: {
-		title: 'MEAN.JS - Test Environment'
+		title: 'Inventory TEST'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',
