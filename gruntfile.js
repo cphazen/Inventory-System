@@ -143,11 +143,26 @@ module.exports = function(grunt) {
 			unit: {
 				configFile: 'karma.conf.js'
 			}
+		},
+		protractor: {
+	    	options: {
+		      configFile: 'protractor.conf.js'
+		    },
+		    all: {}
+	    },
+	    protractor_webdriver: {
+		    your_target: {
+		      options: {
+		        command: 'webdriver-manager start'
+		      },
+		    },
 		}
 	});
 
 	// Load NPM tasks
 	require('load-grunt-tasks')(grunt);
+	grunt.loadNpmTasks('grunt-protractor-runner');
+    grunt.loadNpmTasks('grunt-protractor-webdriver');
 
 	// Making grunt default to force in order not to break the project.
 	grunt.option('force', true);
