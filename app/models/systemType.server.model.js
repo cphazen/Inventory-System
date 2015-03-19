@@ -16,21 +16,9 @@ var systemTypeSchema = new Schema({
 		trim: true,
 		required: 'Category can not be blank'
 	},
-	partName: {
-		type: String,
-		default: '',
-		trim: true,
-		required: 'Part must have a name'
-	},
-	vendor: {
-		type: String,
-		default: 'N/A',
-		trim: true
-	},
-	vndrPartNmbr: {
-		type: String,
-		default: 'N/A',
-		trim: true
+	
+	partList: {
+		type: Object
 	}
 });
 
