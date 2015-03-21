@@ -4,16 +4,7 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 	function($scope, $stateParams, $location, Authentication, Inventory) {
 		$scope.authentication = Authentication;
 
-/*
-		$scope.create = function() {
-			var partType = new Inventory($scope.partType);
-            $location.path('inventory');
-			partType.$save(function(response) {
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
-		};
-*/
+
         $scope.create = function() {
             var partType = new Inventory({
                 category: this.category,
@@ -60,22 +51,7 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 				});
 			}
 		};
-    /*
-		$scope.update = function(isValid) {
-			if (isValid) {
-				$scope.success = $scope.error = null;
-				var partType = new Inventory($scope.partType);
-				partType.$update(function(response) {
-					$scope.success = true;
-                    $location.path('inventory');
-				}, function(response) {
-					$scope.error = response.data.message;
-				});
-			} else {
-				$scope.submitted = true;
-			}
-		};
-    */
+
 
         $scope.update = function() {
             var partType = $scope.partType;
