@@ -26,10 +26,10 @@ KitType.count({"kitName" : "GX5"}, function (err, count){
                 var id = partType._id;
                 var amount = partType.GX5_amount;
                 GX5part_list[id] = amount;
-            }
+            } /* save kit type */
             var kitType = new KitType();
             kitType.kitName = "GX5"
-            kitType.missing = GX5part_list;
+            kitType.parts = GX5part_list;
             kitType.save(function errorHandler(err, el){
                 if (err) console.log(err);
                 //else console.log(el + ' added to database'); //for debugging
@@ -55,10 +55,10 @@ KitType.count({"kitName" : "GX35"}, function (err, count){
                 var id = partType._id;
                 var amount = partType.GX35_amount;
                 GX35part_list[id] = amount;
-            }
+            } /* save kit type */
             var kitType = new KitType();
             kitType.kitName = "GX35"
-            kitType.missing = GX35part_list;
+            kitType.parts = GX35part_list;
             kitType.save(function errorHandler(err, el){
                 if (err) console.log(err);
                 //else console.log(el + ' added to database'); //for debugging

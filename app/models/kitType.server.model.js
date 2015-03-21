@@ -24,7 +24,7 @@ var partTypeSchema = new Schema({
         trim: true,
         required: 'Kit must have a name'
     },
-    missing: {
+    parts: {
         type: Object,
         default: 'N/A',
         trim: true
