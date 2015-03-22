@@ -4,12 +4,18 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
+    //PartType = mongoose.model('PartType'),
     Schema = mongoose.Schema;
 
+var requiredPart = new Schema({
+    _id: {type: Schema.Types.ObjectId, required: true, ref: 'PartType'},
+    quantity: Number
+});
+
 /**
- * Part type schema
+ * Kit type schema
  */
-var partTypeSchema = new Schema({
+var kitTypeSchema = new Schema({
 /*    Need to add auto-increment from 1
     _id: {
         type: String,
@@ -24,11 +30,10 @@ var partTypeSchema = new Schema({
         trim: true,
         required: 'Kit must have a name'
     },
-    parts: {
-        type: Object,
-        default: 'N/A',
-        trim: true
+    requiredParts: {
+        type: [requiredPart],
+        default: null
     }
 });
 
-mongoose.model('KitType', partTypeSchema);
+mongoose.model('KitType', kitTypeSchema);

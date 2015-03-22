@@ -1,12 +1,9 @@
 var mongoose    = require('mongoose'),
     PartType    = mongoose.model('PartType'),
     KitType     = mongoose.model('KitType');
-    //SystemType	= mongoose.model('SystemType'),
-    //GX5_list 	= mongoose.model('PartType').find({GX5_amount : {$gt : 0}}),
-    //GX35_list	= mongoose.model('PartType').find({GX35_amount : {$gt : 0}});
     
-var GX5part_list = {},
-    GX35part_list = {};
+var GX5part_list = [],
+    GX35part_list = [];
 
 /**
  * Sorry for all the nested functions, but it will not work correctly otherwise.
@@ -25,11 +22,12 @@ KitType.count({"kitName" : "GX5"}, function (err, count){
                 var partType = GX5_list[i];
                 var id = partType._id;
                 var amount = partType.GX5_amount;
-                GX5part_list[id] = amount;
+                GX5part_list.push({_id : id, quantity : amount});
             } /* save kit type */
-            var kitType = new KitType();
-            kitType.kitName = "GX5"
-            kitType.parts = GX5part_list;
+            var kitType = new KitType({
+                "kitName": "GX5",
+                "requiredParts" : GX5part_list
+            });
             kitType.save(function errorHandler(err, el){
                 if (err) console.log(err);
                 //else console.log(el + ' added to database'); //for debugging
@@ -54,11 +52,13 @@ KitType.count({"kitName" : "GX35"}, function (err, count){
                 var partType = GX35_list[i];
                 var id = partType._id;
                 var amount = partType.GX35_amount;
-                GX35part_list[id] = amount;
+                //GX35part_list[id] = amount;
+                GX35part_list.push({_id : id, quantity : amount});
             } /* save kit type */
-            var kitType = new KitType();
-            kitType.kitName = "GX35"
-            kitType.parts = GX35part_list;
+            var kitType = new KitType({
+                "kitName": "GX35",
+                "requiredParts" : GX35part_list
+            });
             kitType.save(function errorHandler(err, el){
                 if (err) console.log(err);
                 //else console.log(el + ' added to database'); //for debugging
@@ -69,7 +69,6 @@ KitType.count({"kitName" : "GX35"}, function (err, count){
     else{
         console.log('GX35 kit type already exists...');
     }
-
 });
 
 
