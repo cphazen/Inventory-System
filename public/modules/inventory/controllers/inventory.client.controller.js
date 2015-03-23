@@ -4,7 +4,6 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 	function($scope, $stateParams, $location, Authentication, Inventory) {
 		$scope.authentication = Authentication;
 
-
         $scope.create = function() {
             var partType = new Inventory({
                 category: this.category,
@@ -72,6 +71,13 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 			});
 		};
 
+		$scope.updateInline = function(partType) {
+			partType.$update(partType, function (errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+        };
+
+		
 		$scope.find = function() {
 			$scope.inventory = Inventory.query();
 		};
@@ -81,5 +87,34 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 				partId: $stateParams.partId
 			});
 		};
+		
+		
+		// SORT
+		$scope.partSort = 'category';
+		$scope.partReverse = false;
+			
+		$scope.newWorldOrder = function(attribute){
+			// if attempted sort is selected, reverse order
+			if($scope.partSort == attribute){
+				$scope.partReverse = !$scope.partReverse;
+			}
+			// if attempted sort is not selected, change and unreverse order
+			else{
+				$scope.partSort = attribute;
+				$scope.partReverse = false;
+			}
+		}
+		
+		$scope.chevron = function(attribute){
+			if($scope.partSort == attribute && $scope.partReverse == true) return 'glyphicon-chevron-down';
+			else if($scope.partSort == attribute) return 'glyphicon-chevron-up';
+		}
+		
+		// SEARCH
+		$scope.partQuery = '';
+		
+		// XEDITABLE
+		$scope.categories = ['Main Component', 'Fasteners and Mounting Hardware', 'Cables and Wires', 'K-sun Labels', 'External Components'];
+		
 	}
 ]);

@@ -3,37 +3,111 @@
     <h1>Inventory</h1>
 </div>
 <div>
-    <a href="/#!/inventory/create" class="btn btn-primary">Create New</a>
-    <table class="table table-striped table-bordered table-hover" id="inventory_table">
-        <thead>
-			<tr>
-				<th>Title</th>
-				<th>Category</th>
-				<th>Vendor</th>
-				<th>Vendor Part Number</th>
-				<th>Manufacturer</th>
-				<th>Manufacturer Part Number</th>
-				<th>Price</th>
-				<th>GX5 Amount</th>
-				<th>GX35 Amount</th>
-				<th>Quantity</th>
-			</tr>
-		</thead>
-		<tbody >
-			<tr data-ng-repeat="partType in inventory" >
-				<td><a data-ng-href="#!/inventory/{{partType._id}}/edit">{{partType.partName}}<a></td>
-				<td ng-class="{'dull-field': partType.category == 'N/A'}">{{partType.category}}</td>
-				<td ng-class="{'dull-field': partType.vendor == 'N/A'}">{{partType.vendor}}</td>
-				<td ng-class="{'dull-field': partType.vndrPartNmbr == 'N/A'}">{{partType.vndrPartNmbr}}</td>
-				<td ng-class="{'dull-field': partType.manufacturer == 'N/A'}">{{partType.manufacturer}}</td>
-				<td ng-class="{'dull-field': partType.mnfPartNmbr == 'N/A'}">{{partType.mnfPartNmbr}}</td>
-				<td>{{partType.price}}</td>
-				<td ng-class="{'dull-field': partType.GX5_amount == '0'}">{{partType.GX5_amount}}</td>
-				<td ng-class="{'dull-field': partType.GX35_amount == '0'}">{{partType.GX35_amount}}</td>
-				<td><a class="btn btn-default btn-xs" ng-class="{disabled: partType.quantity <= 0}"  ng-click="updateQuantity(partType, partType.quantity - 1)">&minus;</a> {{partType.quantity}} <a class="btn btn-default btn-xs" ng-click="updateQuantity(partType, partType.quantity + 1)">&plus;</a></td>
-			</tr>
-		</tbody>
-    </table>
+	<div class="row" style="margin-bottom:10px">
+		<div class="col-md-6">
+			<form>
+				<div class="input-group">
+				  <input type="text" class="form-control" placeholder="Search" ng-model="partQuery" aria-describedby="part-search">
+				  <span class="input-group-addon" id="part-search"><span class="glyphicon glyphicon-search"></span></span>
+				</div>
+			</form>
+		</div>
+		<div class="col-md-6 text-right">
+			<a href="/#!/inventory/create" class="btn btn-primary">Create New</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-striped table-bordered table-hover" id="inventory_table">
+				<thead>
+					<tr>
+						<th class="sortable-column">
+							<a ng-click="newWorldOrder('partName')">Title <span class="glyphicon" ng-class="chevron('partName')"></span></a>
+						</th>
+						<th class="sortable-column"><a ng-click="newWorldOrder('category')">Category <span class="glyphicon" ng-class="chevron('category')"></span></a></th>
+						<th class="sortable-column"><a ng-click="newWorldOrder('vendor')">Vendor <span class="glyphicon" ng-class="chevron('vendor')"></span></a></th>
+						<th class="sortable-column"><a ng-click="newWorldOrder('vndrPartNmbr')">Vendor Part Number <span class="glyphicon" ng-class="chevron('vndrPartNmbr')"></span></a></th>
+						<th class="sortable-column"><a ng-click="newWorldOrder('manufacturer')">Manufacturer <span class="glyphicon" ng-class="chevron('manufacturer')"></span></a></th>
+						<th class="sortable-column"><a ng-click="newWorldOrder('mnfPartNmbr')">Manufacturer Part Number <span class="glyphicon" ng-class="chevron('mnfPartNmbr')"></span></a></th>
+						<th class="sortable-column"><a ng-click="newWorldOrder('price')">Price <span class="glyphicon" ng-class="chevron('price')"></span></a></th>
+						<th class="sortable-column"><a ng-click="newWorldOrder('GX5_amount')">GX5 Amount <span class="glyphicon" ng-class="chevron('GX5_amount')"></span></a></th>
+						<th class="sortable-column"><a ng-click="newWorldOrder('GX35_amount')">GX35 Amount <span class="glyphicon" ng-class="chevron('GX35_amount')"></span></a></th>
+						<th class="sortable-column"><a ng-click="newWorldOrder('quantity')">Quantity <span class="glyphicon" ng-class="chevron('quantity')"></span></a></th>
+						<th>Options</th>
+					</tr>
+				</thead>
+				<tbody >
+					<tr data-ng-repeat="partType in inventory | orderBy:partSort:partReverse | filter:partQuery" >
+						<td>
+							<a data-ng-href="#!/inventory/{{partType._id}}/edit" editable-text="partType.partName" e-name="partName" e-form="rowform">
+							{{partType.partName}}
+							<a>
+						</td>
+						<td ng-class="{'dull-field': partType.category == 'N/A'}">
+							<span editable-select="partType.category" e-name="category" e-form="rowform" e-ng-options="category for category in categories">
+								{{partType.category}}
+							</span>
+						</td>
+						<td ng-class="{'dull-field': partType.vendor == 'N/A'}">
+							<span editable-text="partType.vendor"  e-name="vendor" e-form="rowform" >
+								{{partType.vendor}}
+							</span>
+						</td>
+						<td ng-class="{'dull-field': partType.vndrPartNmbr == 'N/A'}">
+							<span editable-text="partType.vndrPartNmbr"  e-name="vndrPartNmbr" e-form="rowform" >
+								{{partType.vndrPartNmbr}}
+							</span>
+						</td>
+						<td ng-class="{'dull-field': partType.manufacturer == 'N/A'}">
+							<span editable-text="partType.manufacturer"  e-name="manufacturer" e-form="rowform" >
+								{{partType.manufacturer}}
+							</span>
+						</td>
+						<td ng-class="{'dull-field': partType.mnfPartNmbr == 'N/A'}">
+							<span editable-text="partType.mnfPartNmbr"  e-name="mnfPartNmbr" e-form="rowform" >
+								{{partType.mnfPartNmbr}}
+							</span>
+						</td>
+						<td>
+							<span editable-number="partType.price"  e-name="price" e-min="0" e-form="rowform" >
+								{{partType.price | currency}}
+							</span>
+						</td>
+						<td ng-class="{'dull-field': partType.GX5_amount == '0'}">
+							<span editable-number="partType.GX5_amount"  e-name="GX5_amount" e-min="0" e-form="rowform" >
+								{{partType.GX5_amount}}
+							</span>
+						</td>
+						<td ng-class="{'dull-field': partType.GX35_amount == '0'}">
+						<span editable-number="partType.GX35_amount"  e-name="GX35_amount" e-min="0" e-form="rowform" >
+							{{partType.GX35_amount}}
+						</span>
+						</td>
+						<td>
+							<span editable-number="partType.quantity"  e-name="quantity" e-min="0" e-form="rowform" >
+								<a class="btn btn-default btn-xs" ng-class="{disabled: partType.quantity <= 0}"  ng-click="updateQuantity(partType, partType.quantity - 1)">&minus;</a> {{partType.quantity}} <a class="btn btn-default btn-xs" ng-click="updateQuantity(partType, partType.quantity + 1)">&plus;</a>
+							</span>
+						</td>
+						<td style="white-space: nowrap">
+						<!-- form -->
+						<form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == partType" name="rowform" onbeforesave ="updateInline(partType)" novalidate>
+						  <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary btn-xs">
+							<span class="glyphicon glyphicon-floppy-disk"></span>
+						  </button>
+						  <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default btn-xs">
+							<span class="glyphicon glyphicon-remove"></span>
+						  </button>
+						</form>
+						<div class="buttons" ng-show="!rowform.$visible">
+						  <button class="btn btn-primary btn-xs" ng-click="rowform.$show()"><span class="glyphicon glyphicon-pencil"></span></button>
+						  <button class="btn btn-danger btn-xs" ng-click="removeUser($index)"><span class="glyphicon glyphicon-remove"></span></button>
+						</div>  
+					  </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
 <div class="alert alert-warning text-center" data-ng-if="partType.$resolved && !partType.length">
    <strong>There are no parts yet.</strong> Why don't you <a href="/#!/inventory/create">create one</a>?
