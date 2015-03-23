@@ -162,7 +162,6 @@ module.exports = function(grunt) {
 	// Load NPM tasks
 	require('load-grunt-tasks')(grunt);
 	grunt.loadNpmTasks('grunt-protractor-runner');
-    //grunt.loadNpmTasks('grunt-protractor-webdriver');
 
 	// Making grunt default to force in order not to break the project.
 	grunt.option('force', true);

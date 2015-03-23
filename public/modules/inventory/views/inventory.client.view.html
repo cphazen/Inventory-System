@@ -7,7 +7,7 @@
 		<div class="col-md-6">
 			<form>
 				<div class="input-group">
-				  <input type="text" class="form-control" placeholder="Search" ng-model="partQuery" aria-describedby="part-search">
+				  <input type="text" class="form-control" placeholder="Search for an item in the inventory" ng-model="partQuery" aria-describedby="part-search">
 				  <span class="input-group-addon" id="part-search"><span class="glyphicon glyphicon-search"></span></span>
 				</div>
 			</form>
@@ -49,43 +49,43 @@
 							</span>
 						</td>
 						<td ng-class="{'dull-field': partType.vendor == 'N/A'}">
-							<span editable-text="partType.vendor"  e-name="vendor" e-form="rowform" >
+							<span editable-text="partType.vendor" e-name="vendor" e-form="rowform" >
 								{{partType.vendor}}
 							</span>
 						</td>
 						<td ng-class="{'dull-field': partType.vndrPartNmbr == 'N/A'}">
-							<span editable-text="partType.vndrPartNmbr"  e-name="vndrPartNmbr" e-form="rowform" >
+							<span editable-text="partType.vndrPartNmbr" e-name="vndrPartNmbr" e-form="rowform" >
 								{{partType.vndrPartNmbr}}
 							</span>
 						</td>
 						<td ng-class="{'dull-field': partType.manufacturer == 'N/A'}">
-							<span editable-text="partType.manufacturer"  e-name="manufacturer" e-form="rowform" >
+							<span editable-text="partType.manufacturer" e-name="manufacturer" e-form="rowform" >
 								{{partType.manufacturer}}
 							</span>
 						</td>
 						<td ng-class="{'dull-field': partType.mnfPartNmbr == 'N/A'}">
-							<span editable-text="partType.mnfPartNmbr"  e-name="mnfPartNmbr" e-form="rowform" >
+							<span editable-text="partType.mnfPartNmbr" e-name="mnfPartNmbr" e-form="rowform" >
 								{{partType.mnfPartNmbr}}
 							</span>
 						</td>
 						<td>
-							<span editable-number="partType.price"  e-name="price" e-min="0" e-form="rowform" >
+							<span editable-number="partType.price" e-name="price" e-min="0" e-form="rowform" >
 								{{partType.price | currency}}
 							</span>
 						</td>
 						<td ng-class="{'dull-field': partType.GX5_amount == '0'}">
-							<span editable-number="partType.GX5_amount"  e-name="GX5_amount" e-min="0" e-form="rowform" >
+							<span editable-number="partType.GX5_amount" e-name="GX5_amount" e-min="0" e-form="rowform" >
 								{{partType.GX5_amount}}
 							</span>
 						</td>
 						<td ng-class="{'dull-field': partType.GX35_amount == '0'}">
-						<span editable-number="partType.GX35_amount"  e-name="GX35_amount" e-min="0" e-form="rowform" >
+						<span editable-number="partType.GX35_amount" e-name="GX35_amount" e-min="0" e-form="rowform" >
 							{{partType.GX35_amount}}
 						</span>
 						</td>
 						<td>
-							<span editable-number="partType.quantity"  e-name="quantity" e-min="0" e-form="rowform" >
-								<a class="btn btn-default btn-xs" ng-class="{disabled: partType.quantity <= 0}"  ng-click="updateQuantity(partType, partType.quantity - 1)">&minus;</a> {{partType.quantity}} <a class="btn btn-default btn-xs" ng-click="updateQuantity(partType, partType.quantity + 1)">&plus;</a>
+							<span editable-number="partType.quantity" e-name="quantity" e-min="0" e-form="rowform" >
+								<a class="btn btn-default btn-xs" ng-class="{disabled: partType.quantity <= 0}" ng-click="updateQuantity(partType, partType.quantity - 1)">&minus;</a> {{partType.quantity}} <a class="btn btn-default btn-xs" ng-click="updateQuantity(partType, partType.quantity + 1)">&plus;</a>
 							</span>
 						</td>
 						<td style="white-space: nowrap">
