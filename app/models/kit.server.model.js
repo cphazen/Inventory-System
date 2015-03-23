@@ -35,7 +35,7 @@ var kitSchema = new Schema({
         required: 'Kit must have a serial number'
     },
     kitTypeId: {
-        type: Schema.Types.ObjectId,
+        type: Number,
         ref: 'KitType'
     },
     isSystem: {

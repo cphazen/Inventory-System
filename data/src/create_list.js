@@ -2,7 +2,7 @@ var mongoose    = require('mongoose'),
     PartType    = mongoose.model('PartType'),
     KitType     = mongoose.model('KitType');
 
-function generate_system(type) {
+function generate_system(id, type) {
     // Check if system already exists
     KitType.count({name: type}, function(err, count) {
         if (err) return console.error(err);
@@ -23,6 +23,7 @@ function generate_system(type) {
                     quantity: parts[i][amount_var]
                 });
             var kitType = new KitType({
+                _id: id,
                 name: type,
                 requiredParts:requiredParts
             });
@@ -31,5 +32,5 @@ function generate_system(type) {
     });
 }
 
-generate_system('GX5');
-generate_system('GX35');
+generate_system(0, 'GX5');
+generate_system(1, 'GX35');

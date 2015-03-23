@@ -15,14 +15,7 @@ var requiredPart = new Schema({
  * Kit type schema
  */
 var kitTypeSchema = new Schema({
-/*    Need to add auto-increment from 1
-    _id: {
-        type: String,
-        default: '',
-        trim: true,
-        required: 'Category can not be blank'
-    },
-    */
+    _id: Number,
     name: {
         type: String,
         default: '',

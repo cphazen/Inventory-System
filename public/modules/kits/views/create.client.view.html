@@ -6,8 +6,17 @@
         <form name="kitForm" class="form-horizontal" ng-submit="create()" novalidate>
             <fieldset>
                 <div class="form-group">
-                    <label for="kitTypeId">Kit Type: </label>
-                    <input class="form-control" data-ng-model="kitTypeId" type="text" name="kitTypeId" id="kitTypeId" />
+                    <strong>Kit Type:</strong>
+                    <div class="radio">
+                        <label>
+                            <input name="kitTypeId" type="radio" data-ng-model="kitTypeId" value="0" id="kitTypeId1" checked />
+                            GX5
+                        </label><br>
+                        <label>
+                            <input name="kitTypeId" type="radio" data-ng-model="kitTypeId" value="1" id="kitTypeId2" />
+                            GX35
+                        </label><br>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="serialNmbr">Serial Number: </label>
