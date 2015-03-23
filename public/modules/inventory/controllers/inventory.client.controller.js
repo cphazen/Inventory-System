@@ -95,7 +95,7 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 			
 		$scope.newWorldOrder = function(attribute){
 			// if attempted sort is selected, reverse order
-			if($scope.partSort == attribute){
+			if($scope.partSort === attribute){
 				$scope.partReverse = !$scope.partReverse;
 			}
 			// if attempted sort is not selected, change and unreverse order
@@ -103,12 +103,12 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 				$scope.partSort = attribute;
 				$scope.partReverse = false;
 			}
-		}
+		};
 		
 		$scope.chevron = function(attribute){
-			if($scope.partSort == attribute && $scope.partReverse == true) return 'glyphicon-chevron-down';
-			else if($scope.partSort == attribute) return 'glyphicon-chevron-up';
-		}
+			if($scope.partSort === attribute && $scope.partReverse === true) return 'glyphicon-chevron-down';
+			else if($scope.partSort === attribute) return 'glyphicon-chevron-up';
+		};
 		
 		// SEARCH
 		$scope.partQuery = '';
