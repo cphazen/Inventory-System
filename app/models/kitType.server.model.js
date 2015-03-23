@@ -23,7 +23,7 @@ var kitTypeSchema = new Schema({
         required: 'Category can not be blank'
     },
     */
-    kitName: {
+    name: {
         type: String,
         default: '',
         trim: true,
