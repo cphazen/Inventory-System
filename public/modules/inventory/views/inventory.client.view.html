@@ -14,6 +14,7 @@
 		</div>
 		<div class="col-md-6 text-right">
 			<a href="/#!/inventory/create" class="btn btn-primary">Create New</a>
+			<!--<button class="btn btn-primary" ng-click="addPart()">Create New</button>-->
 		</div>
 	</div>
 	<div class="row">
@@ -44,7 +45,7 @@
 							<a>
 						</td>
 						<td ng-class="{'dull-field': partType.category == 'N/A'}">
-							<span editable-select="partType.category" e-name="category" e-form="rowform" e-ng-options="category for category in categories">
+							<span editable-select="partType.category" e-name="category" e-form="rowform" e-ng-options="category for category in categories"> 
 								{{partType.category}}
 							</span>
 						</td>
@@ -100,7 +101,7 @@
 						</form>
 						<div class="buttons" ng-show="!rowform.$visible">
 						  <button class="btn btn-primary btn-xs" ng-click="rowform.$show()"><span class="glyphicon glyphicon-pencil"></span></button>
-						  <button class="btn btn-danger btn-xs" ng-click="removeUser($index)"><span class="glyphicon glyphicon-remove"></span></button>
+						  <button class="btn btn-danger btn-xs" ng-click="removePart(partType)"><span class="glyphicon glyphicon-remove"></span></button>
 						</div>  
 					  </td>
 					</tr>

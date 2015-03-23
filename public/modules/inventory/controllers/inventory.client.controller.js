@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('inventory').controller('InventoryController', ['$scope', '$stateParams', '$location', 'Authentication', 'Inventory',
-	function($scope, $stateParams, $location, Authentication, Inventory) {
+angular.module('inventory').controller('InventoryController', ['$scope', '$stateParams', '$location', 'Authentication', 'Inventory', '$window',
+	function($scope, $stateParams, $location, Authentication, Inventory, $window) {
 		$scope.authentication = Authentication;
 
         $scope.create = function() {
@@ -72,9 +72,9 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 		};
 
 		$scope.updateInline = function(partType) {
-			partType.$update(partType, function (errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
+				partType.$update(partType, function (errorResponse) {
+					$scope.error = errorResponse.data.message;
+				});
         };
 
 		
@@ -116,5 +116,56 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 		// XEDITABLE
 		$scope.categories = ['Main Component', 'Fasteners and Mounting Hardware', 'Cables and Wires', 'K-sun Labels', 'External Components'];
 		
+		// remove part
+		$scope.removePart = function(partType){
+			//$scope.inventory.splice(index,1);
+			var rem = $window.confirm("Are you sure you want to permanently delete '" + partType.partName + "'?");
+			if(rem) $scope.remove(partType);
+		}
+		
+		// add part
+		/*$scope.addPart = function(){
+			var partType2 = new Inventory({
+                category: '/',
+                partName: 'New Part',
+                vendor: '',
+                vndrPartNmbr: '',
+                manufacturer: '',
+                mnfPartNmbr: '',
+                price: '0',
+                GX5_amount: '0',
+                GX35_amount: '0',
+                quantity: '0'
+				});
+				partType2.$save(function() {
+					$location.path('inventory');
+					$scope.category = '';
+					$scope.partName = '';
+					$scope.vendor = '';
+					$scope.vndrPartNmbr = '';
+					$scope.manufacturer = '';
+					$scope.mnfPartNmbr = '';
+					$scope.price = '';
+					$scope.GX5_amount = '';
+					$scope.GX35_amount = '';
+					$scope.quantity = '';
+				}, function(errorResponse) {
+					$scope.error = errorResponse.data.message;
+					$window.alert($scope.error);
+				});
+			$scope.inserted = {
+                category: '/',
+                partName: 'New Part',
+                vendor: '',
+                vndrPartNmbr: '',
+                manufacturer: '',
+                mnfPartNmbr: '',
+                price: '0',
+                GX5_amount: '0',
+                GX35_amount: '0',
+                quantity: '0'
+			};
+			$scope.inventory.splice(0,0,$scope.inserted);
+		}*/
 	}
 ]);
