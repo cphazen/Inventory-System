@@ -7,17 +7,17 @@ angular.module('kits').controller('KitsController', ['$scope', '$stateParams', '
         $scope.create = function() {
             var kit = new Kits({
                 serialNmbr: this.serialNmbr,
-                kitTypeId: this.kitTypeId,
-                missingParts: this.missingParts,
-                isSystem: this.isSystem
+                kitTypeId: this.kitTypeId
+                //missingParts: this.missingParts,
+                //isSystem: this.isSystem
             });
             //$location.path('kits');
             kit.$save(function() {
                 $location.path('kits');
                 $scope.serialNmbr = '';
                 $scope.kitTypeId = '';
-                $scope.missingParts = '';
-                $scope.isSystem = '';
+                //$scope.missingParts = '';
+                //$scope.isSystem = '';
             }, function(errorResponse) {
                 $scope.error = errorResponse.data.message;
             });

@@ -44,7 +44,7 @@ exports.create = function(req, res) {
                             missingParts: missingParts,
                             serialNmbr : req.body.serialNmbr,
                             kitTypeId : req.body.kitTypeId,
-                            isSystem : req.body.isSystem
+                            isSystem : false
                         }
                     );
 

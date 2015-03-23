@@ -9,17 +9,23 @@ function generate_system(type) {
         if (count) return;
 
         // if it doesn't exist, create it and generate its requiredParts
-        var kitType = new KitType({name: type});
+
+        var requiredParts = [];
+
 
         // generate the part list
         var amount_var = type + '_amount', filter = {};
         filter[amount_var] = {$gt: 0};
         PartType.find(filter, function(err, parts) {
             for (var i = 0; i < parts.length; i++)
-            	kitType.requiredParts.push({
+            	requiredParts.push({
                     _id: parts[i]._id,
-                    quantity: parts[i][amount_var],
+                    quantity: parts[i][amount_var]
                 });
+            var kitType = new KitType({
+                name: type,
+                requiredParts:requiredParts
+            });
             kitType.save();
         });
     });
