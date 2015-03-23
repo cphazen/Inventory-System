@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Protractor testing', function() {
+describe('Protractor homepage testing', function() {
 	
 	beforeEach(function() {
 		browser.get('http://localhost:3000/#!/');
@@ -15,9 +15,13 @@ describe('Protractor testing', function() {
         expect(element(by.css('a.btn.btn-primary.btn-md')).isPresent()).toBe(true);
     });
 	
-	it('Click the Inventory button', function () {
-		// clicks the 1st element
-		element.all( by.css('[class="list-unstyled action-list"]') ).get(0).click();
-		//expect(browser.get('http://localhost:3000/#!/inventory')).isPresent().toBe(true);
+	it('Click the Inventory button and verify new window url', function () {
+		// clicks the first button
+		element.all(by.css('[class="list-unstyled action-list"]') ).get(0).click();
+		
+		// to verify that the button was pressed
+		browser.driver.sleep(50);
+		
+		expect(browser.getCurrentUrl()).toMatch('http://localhost:3000/#!/inventory');//.get('http://localhost:3000/#!/inventory')).toBe(true);
 	});
 })
