@@ -56,7 +56,7 @@ angular.module('kits').controller('KitsController', ['$scope', '$stateParams', '
 
 		$scope.findOne = function() {
 			$scope.kit = Kits.get({
-				kitId: $stateParams.kitId
+				kitTypeId: $stateParams.kitTypeId
 			});
 		};
 	}

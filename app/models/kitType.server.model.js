@@ -4,7 +4,6 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    //PartType = mongoose.model('PartType'),
     Schema = mongoose.Schema;
 
 var requiredPart = new Schema({
