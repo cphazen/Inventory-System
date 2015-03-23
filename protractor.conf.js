@@ -13,18 +13,22 @@ exports.config = {
 	// The timeout (in ms) for each script to run on the browser 
 	// Note: It should be longer than the maximum time the applications needs to 
 	// stabilize between tasks
-	allScriptsTimeout: 30000,
+	allScriptsTimeout: 99999,
 
 	// Wait time for the homepage to load
 	getPageTimeout: 10000,
 	
+	baseUrl: 'http://localhost:3000/', 
+	
 	framework: 'jasmine',
 	
 	jasmineNodeOpts: {
-    // If true, then print colors to the terminal
-    showColors: true,
-    // The default time (in ms) to wait before a test fails
-    defaultTimeoutInterval: 30000
+		// If true, then print colors to the terminal
+		showColors: true,
+		// The default time (in ms) to wait before a test fails
+		defaultTimeoutInterval: 30000,
+		isVerbose : true,
+		includeStackTrace : true
 	},
 	
 	// For running on different browsers, just incase someone does not have one of these browsers
@@ -35,7 +39,7 @@ exports.config = {
 		{
 			'browserName': 'chrome'
 		}, 
-/* 		{
+		/* {
 			'browserName': 'firefox'
 		} */
 	]
