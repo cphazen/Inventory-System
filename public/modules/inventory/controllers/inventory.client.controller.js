@@ -119,9 +119,9 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 		// remove part
 		$scope.removePart = function(partType){
 			//$scope.inventory.splice(index,1);
-			var rem = $window.confirm("Are you sure you want to permanently delete '" + partType.partName + "'?");
+			var rem = $window.confirm('Are you sure you want to permanently delete "' + partType.partName + '"?');
 			if(rem) $scope.remove(partType);
-		}
+		};
 		
 		// add part
 		/*$scope.addPart = function(){
