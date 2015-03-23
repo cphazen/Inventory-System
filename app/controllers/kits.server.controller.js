@@ -28,10 +28,20 @@ exports.create = function(req, res) {
                         //if (err) return console.log(err);
                         var qty = partType.quantity - requiredPart.quantity;
                         if(qty >= 0){
-                            partType.update({quantity:qty});
+                            partType.quantity = qty;
+                            partType.save(function(err){
+                                if (err) {
+                                    return res.status(400).send({
+                                        message: errorHandler.getErrorMessage(err)});}
+                            });
                         }
                         else{
-                            partType.update({quantity:0});
+                            partType.quantity = qty;
+                            partType.save(function(err){
+                                if (err) {
+                                    return res.status(400).send({
+                                        message: errorHandler.getErrorMessage(err)});}
+                            });
                             qty = qty * -1; //make positive
                             missingParts.push({_id : requiredPart._id, quantity:qty});
                         }
