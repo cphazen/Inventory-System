@@ -48,8 +48,8 @@ describe('PartType CRUD tests', function() {
 						// Get partTypes list
 						var partTypes = partTypesGetRes.body;
 						// Set assertions
-						//(partTypes[0].partType._id).should.equal(partType._id);
-						//(partTypes[0].title).should.match('Part Name');
+						(partTypes[0].category).match('Sample Category');
+						(partTypes[0].partName).match('Sample Name');
 						// Call the assertion callback
 						done();
 					});

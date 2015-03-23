@@ -34,6 +34,13 @@ describe('PartType Model Unit Tests:', function() {
     });
 
 	describe('Method Save', function() {
+		it('should had not new parts yet', function(done) {
+			PartType.find({}, function(err, partType) {
+				partType.should.have.length(0);
+				done();
+			});
+		});
+		
 		it('should be able to save without problems', function(done) {
 			return partType.save(function(err) {
 				should.not.exist(err);

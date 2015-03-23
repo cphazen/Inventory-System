@@ -19,7 +19,7 @@ describe('Protractor testing', function() {
 		});		
 	});
 
-	describe('Checking the inventory button', function() {
+	describe('Chicking the inventory button', function() {
 		it('Click the Inventory button', function () {
 			// clicks the first button
 			element.all(by.css('[class="list-unstyled action-list"]')).get(0).click();
@@ -35,13 +35,27 @@ describe('Protractor testing', function() {
 
 
 	describe('Inventory testing', function() {
-
+		var partType;
+		
 		beforeEach(function() {
 			browser.get('http://localhost:3000/#!/');
+			
+			// Create a data model 
+			partType = {
+				category: 'Sample Category',
+				partName: 'Sample Name',
+				vendor: 'Sample Vendor',
+				vndrPartNmbr: '123',
+				manufacturer: 'Sample Manufacturer',
+				mnfPartNmbr: '456',
+				price: '12',
+				GX5_amount: '1',
+				GX35_amount: '2',
+				quantity:'3'
+			};
 		});
 		
 		it('Adding an item to the inventory button', function () {
-			var invList;
 			
 			// clicks the inventory button
 			element.all(by.css('[class="list-unstyled action-list"]')).get(0).click();
@@ -51,7 +65,7 @@ describe('Protractor testing', function() {
 				expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/inventory');
 			});
 			
-			/*describe('should get count of inventory items', function() {
+			/*describe('should get original count of inventory items', function() {
 				it('should get count of inventory items', function() {
 					var invList = element.all(by.repeater('partType in inventory | orderBy:partSort:partReverse | filter:partQuery'));
 					expect(invList.count()).toEqual(75);
@@ -77,14 +91,15 @@ describe('Protractor testing', function() {
 				element.all(by.id('category1')).then(function (elm) {
 					elm[0].click();
 			});
-			element(by.model('partName')).sendKeys('this');
-			element(by.model('vendor')).sendKeys('is');
-			element(by.model('vndrPartNmbr')).sendKeys('is');
-			element(by.model('manufacturer')).sendKeys('a');
-			element(by.model('mnfPartNmbr')).sendKeys('protractor');
-			element(by.model('price')).sendKeys('1');
-			element(by.model('quantity')).sendKeys('2');
-			element(by.model('GX5_amount')).sendKeys('1');
+			element(by.model('partName')).sendKeys(partType.partName);
+			element(by.model('vendor')).sendKeys(partType.vendor);
+			element(by.model('vndrPartNmbr')).sendKeys(partType.vndrPartNmbr);
+			element(by.model('manufacturer')).sendKeys(partType.manufacturer);
+			element(by.model('mnfPartNmbr')).sendKeys(partType.mnfPartNmbr);
+			element(by.model('price')).sendKeys(partType.price);
+			element(by.model('quantity')).sendKeys(partType.quantity);
+			element(by.model('GX5_amount')).sendKeys(partType.GX5_amount);
+			element(by.model('GX35_amount')).sendKeys(partType.GX35_amount);
 			
 			element.all(by.id('create-event-button')).click();
 			
@@ -92,7 +107,7 @@ describe('Protractor testing', function() {
 			expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/inventory');
 			
 			// search for the new item
-			element.all(by.css('Search for an item in the inventory')).sendKeys('this');
+			element.all(by.css('Search for an item in the inventory')).sendKeys(partType.partName);
 			element.all(by.id('part-search')).click();
 			
 			// check to see that is only one item under the search 
