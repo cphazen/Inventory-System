@@ -1,1 +1,34 @@
-
+<section data-ng-controller="KitsController">
+    <div class="page-header">
+        <h1>Create a new kit</h1>
+    </div>
+    <div class="col-md-12">
+        <form name="kitForm" class="form-horizontal" ng-submit="create()" novalidate>
+            <fieldset>
+                <div class="form-group">
+                    <strong>Kit Type:</strong>
+                    <div class="radio">
+                        <label>
+                            <input name="kitTypeId" type="radio" data-ng-model="kitTypeId" value="0" id="kitTypeId1" checked />
+                            GX5
+                        </label><br>
+                        <label>
+                            <input name="kitTypeId" type="radio" data-ng-model="kitTypeId" value="1" id="kitTypeId2" />
+                            GX35
+                        </label><br>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="serialNmbr">Serial Number: </label>
+                    <input class="form-control" data-ng-model="serialNmbr" type="text" name="serialNmbr" id="serialNmbr" />
+                </div>
+                <div class="form-group">
+                    <input id="create-event-button" type="submit" class="btn btn-default" />
+                </div>
+                <div data-ng-show="error" class="text-danger">
+                    <strong data-ng-bind="error"></strong>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</section>

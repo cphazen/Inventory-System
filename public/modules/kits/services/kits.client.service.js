@@ -1,7 +1,7 @@
 'use strict';
 
-//Articles service used for communicating with the articles REST endpoints
-angular.module('kits').factory('Kit', ['$resource',
+//kits service used for communicating with the kits REST endpoints
+angular.module('kits').factory('Kits', ['$resource',
 	function($resource) {
 		return $resource('kits/:kitId', {
 			kitId: '@_id'
