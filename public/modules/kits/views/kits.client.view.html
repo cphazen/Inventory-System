@@ -1,0 +1,35 @@
+<section data-ng-controller="KitsController" data-ng-init="find()">
+<div class="page-header">
+    <h1>Kits</h1>
+</div>
+<div>
+	<h3>Completed Kits</h3>
+</div>
+<div class="row">
+		<div class="col-md-12">
+			<table class="table table-striped table-bordered table-hover" id="inventory_table">
+				<thead>
+					<tr>
+						<th class="sortable-column">
+							<a ng-click="newWorldOrder('partName')">Type <span class="glyphicon" ng-class="chevron('partName')"></span></a>
+						</th>
+						<th class="sortable-column"><a ng-click="newWorldOrder('category')">Serial Number <span class="glyphicon" ng-class="chevron('category')"></span></a></th>
+					</tr>
+				</thead>
+				
+				<tbody >
+					<tr data-ng-repeat="kit in kits | filter:partQuery" >
+						<td>
+							<a data-ng-href="#!/inventory/{kit._id}}/edit" editable-text="partType.partName" e-name="partName" e-form="rowform">
+							{{kit.kitTypeId}}
+							<a>
+						</td>
+						<td ng-class="{'dull-field': partType.category == 'N/A'}">
+							<span editable-select="partType.category" e-name="category" e-form="rowform" e-ng-options="category for category in categories"> 
+								{{kit.serialNmbr}}
+							</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
