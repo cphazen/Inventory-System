@@ -36,7 +36,7 @@ exports.create = function(req, res) {
                             });
                         }
                         else{
-                            partType.quantity = qty;
+                            partType.quantity = 0;
                             partType.save(function(err){
                                 if (err) {
                                     return res.status(400).send({
