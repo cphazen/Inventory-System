@@ -51,7 +51,6 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 			}
 		};
 
-
         $scope.update = function() {
             var partType = $scope.partType;
 
@@ -62,7 +61,6 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
             });
         };
 
-
 		$scope.updateQuantity = function (partType, newVal){
 			// only for parts that do NOT use part schema
 			partType.quantity = newVal;
@@ -72,11 +70,10 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 		};
 
 		$scope.updateInline = function(partType) {
-				partType.$update(partType, function (errorResponse) {
-					$scope.error = errorResponse.data.message;
-				});
+			partType.$update(partType, function (errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
         };
-
 		
 		$scope.find = function() {
 			$scope.inventory = Inventory.query();
@@ -86,8 +83,7 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 			$scope.partType = Inventory.get({
 				partId: $stateParams.partId
 			});
-		};
-		
+		};	
 		
 		// SORT
 		$scope.partSort = 'category';

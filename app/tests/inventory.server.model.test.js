@@ -47,7 +47,7 @@ describe('PartType Model Unit Tests:', function() {
 				done();
 			});
 		});
-
+		
 		it('should be able to show an error when try to save without partName', function(done) {
 			partType.partName = '';
 
@@ -66,7 +66,6 @@ describe('PartType Model Unit Tests:', function() {
 				done();
 			});
 		});
-
 
 		it('should show an error when try to save without price', function(done) {
 			partType.price = '';

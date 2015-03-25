@@ -6,15 +6,15 @@ describe('Protractor testing', function() {
 		browser.get('http://localhost:3000/#!/');
 	});
 	
-	describe('Checking correct title', function() {
+	describe('Homepage title', function() {
 		// checking the application's title
-		it('Checking correct title', function() {
+		it('Checking for correct title', function() {
 			expect(browser.getTitle()).toEqual('Inventory DEV');
 		});		
 	});
 	
-	describe('Checking homepage buttons', function() {
-		it('Checking homepage buttons', function () {
+	describe('Homepage buttons', function() {
+		it('Checking for homepage buttons', function () {
 			expect(element(by.css('a.btn.btn-primary.btn-md')).isPresent()).toBe(true);
 		});		
 	});
@@ -32,6 +32,20 @@ describe('Protractor testing', function() {
 			});
 		});		
 	});
+	
+	describe('Checking the kits button', function() {
+		it('Click the Kits button', function () {
+			// clicks the second button
+			element.all(by.css('[class="btn btn-primary btn-md"]')).get(1).click();
+			
+			browser.driver.sleep(50);
+			
+			// verify that the button was click
+			browser.get('http://localhost:3000/#!/kits').then(function() {
+				expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/kits');
+			});
+		});		
+	});
 
 
 	describe('Inventory testing', function() {
@@ -40,7 +54,7 @@ describe('Protractor testing', function() {
 		beforeEach(function() {
 			browser.get('http://localhost:3000/#!/');
 			
-			// Create a data model 
+			// Create a data model to use in test
 			partType = {
 				category: 'Sample Category',
 				partName: 'Sample Name',
@@ -107,10 +121,42 @@ describe('Protractor testing', function() {
 			expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/inventory');
 			
 			// search for the new item
-			element.all(by.css('Search for an item in the inventory')).sendKeys(partType.partName);
+			element.all(by.model('partQuery')).sendKeys(partType.partName);
 			element.all(by.id('part-search')).click();
 			
-			// check to see that is only one item under the search 
+			// increment quantity
+			browser.driver.actions().mouseMove(element(by.css('[ng-click="updateQuantity(partType, partType.quantity + 1)"]'))).perform();
+			element.all(by.css('[ng-click="updateQuantity(partType, partType.quantity + 1)"]')).then(function (elm) {
+				elm[0].click();
+				elm[0].click();
+				elm[0].click();
+				elm[0].click();
+			});
+			
+			// decrement quantity
+			browser.driver.actions().mouseMove(element(by.css('[ng-click="updateQuantity(partType, partType.quantity - 1)"]'))).perform();
+			element.all(by.css('[ng-click="updateQuantity(partType, partType.quantity - 1)"]')).then(function (elm) {
+				elm[0].click();
+				elm[0].click();
+				elm[0].click();
+				elm[0].click();
+			});
+			
+			// edit the part's information
+			browser.driver.actions().mouseMove(element(by.css('[class="glyphicon glyphicon-pencil"]'))).perform();
+			element.all(by.css('[class="glyphicon glyphicon-pencil"]')).then(function (elm) {
+				elm[0].click();
+			});
+			
+			browser.driver.actions().mouseMove(element(by.css('[name="partName"]'))).perform();
+			element.all(by.css('[name="partName"]')).then(function(elm) {
+				elm[0].sendKeys(partType.partName + '2');
+			});
+			
+			browser.driver.actions().mouseMove(element(by.css('[class="glyphicon glyphicon-floppy-disk"]'))).perform();
+			element.all(by.css('[class="glyphicon glyphicon-floppy-disk"]')).then(function (elm) {
+				elm[0].click();
+			});
 		});
 	})
 })
