@@ -39,7 +39,6 @@ angular.module('kits').controller('KitsController', ['$scope', '$stateParams', '
 			}
 		};
 
-
         $scope.update = function() {
             var kit = $scope.kit;
 
