@@ -35,7 +35,7 @@ require('./config/passport')();
 
 //Populate mongoDB
 require('./data/src/populate');
-require('./data/src/create_list');
+//require('./data/src/create_list');
 
 // Start the app by listening on <port>
 app.listen(config.port);

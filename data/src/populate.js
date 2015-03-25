@@ -3,31 +3,45 @@
 /////////////////////////////////////////////////////////////
 var mongoose    = require('mongoose'),
     PartType    = mongoose.model('PartType'),
-    data        = require('../partType.json');
+    data        = require('../partType.json'),
+    KitType     = mongoose.model('KitType');
+
+
+function generate_kitType(id, type) {
+    // Check if system already exists
+    KitType.count({name: type}, function(err, count) {
+        if (err) return console.error(err);
+        if (count) return;
+
+        // if it doesn't exist, create it and generate its requiredParts
+
+        var requiredParts = [];
+
+
+        // generate the part list
+        var amount_var = type + '_amount', filter = {};
+        filter[amount_var] = {$gt: 0};
+        PartType.find(filter, function(err, parts) {
+            for (var i = 0; i < parts.length; i++)
+                requiredParts.push({
+                    _id: parts[i]._id,
+                    quantity: parts[i][amount_var]
+                });
+            var kitType = new KitType({
+                _id: id,
+                name: type,
+                requiredParts:requiredParts
+            });
+            kitType.save();
+        });
+    });
+}
 
 var err, el;
 function errorHandler(err, el){
     if (err) console.log(err);
     //else console.log(el + ' added to database');
 }
-
-/* Deletes old partType collection */
-PartType.count({}, function(err, count) {
-    if(count >= 102 ){
-        PartType.remove({}, function(err) {
-            console.log('Changing PartType attributes, rerun grunt to populate...');
-        });
-    }
-});
-
-/* Deletes old partType collection */
-PartType.count({Manufacturer: 'AICSYS'}, function(err, count) {
-    if(count){
-        PartType.remove({}, function(err) {
-            console.log('Changing PartType attributes, rerun grunt to populate...');
-        });
-    }
-});
 
 /*Check if PartType is already populated */
 PartType.count({}, function(err, count){
@@ -43,5 +57,8 @@ PartType.count({}, function(err, count){
     } else {
         console.log('MongoDB is already populated...');
     }
+
+    generate_kitType(0, 'GX5');
+    generate_kitType(1, 'GX35');
 });
 /////////////////////////////////////////////////////////////
