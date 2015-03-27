@@ -230,7 +230,7 @@ describe('Kit CRUD tests', function() {
 */
 
 	afterEach(function(done) {
-		PartType.remove().exec();
+		kit.remove().exec();
 		done();
 	});
 });

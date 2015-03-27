@@ -6,7 +6,7 @@
 var should = require('should'),
 	mongoose = require('mongoose'),
     Kit = mongoose.model('Kit'),
-    KitType = mongoose.model('KitType')
+    KitType = mongoose.model('KitType');
 
 /**
  * Globals

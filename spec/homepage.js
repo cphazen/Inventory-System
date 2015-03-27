@@ -153,10 +153,16 @@ describe('Protractor testing', function() {
 				elm[0].sendKeys(partType.partName + '2');
 			});
 			
+			// save the changes
 			browser.driver.actions().mouseMove(element(by.css('[class="glyphicon glyphicon-floppy-disk"]'))).perform();
 			element.all(by.css('[class="glyphicon glyphicon-floppy-disk"]')).then(function (elm) {
 				elm[0].click();
 			});
+			
+			// search for the new item
+			element.all(by.model('partQuery')).sendKeys(partType.partName+partType.partName+'2');
+			element.all(by.id('part-search')).click();
+			
 		});
 	})
 })
