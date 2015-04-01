@@ -12,3 +12,34 @@ angular.module('kits').factory('Kits', ['$resource',
 		});
 	}
 ]);
+
+angular.module('kits').filter('gxType', function(){
+	return function(input){
+		return input == 0? "GX-5" : "GX-35";	
+	}
+})
+
+angular.module('kits').filter('completed', function(){
+	return function(input, complete){
+		var output = [];
+		if(complete){
+			var i = 0;
+			var l = input.length;
+			for(i = 0; i < l; i++){
+				if(!input[i].missingParts || input[i].missingParts.length == 0){
+					output.push(input[i]);
+				}
+			}
+		}
+		else{
+			var i = 0;
+			var l = input.length;
+			for(i = 0; i < l; i++){
+				if(input[i].missingParts.length > 0){
+					output.push(input[i]);
+				}
+			}
+		}
+		return output;
+	}	
+})

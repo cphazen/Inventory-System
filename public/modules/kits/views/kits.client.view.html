@@ -16,8 +16,8 @@
 				</thead>
 				
 				<tbody >
-					<tr data-ng-repeat="kit in kits" >
-						<td>{{kit.kitTypeId}}</td>
+					<tr data-ng-repeat="kit in kits | completed:true" >
+						<td>{{kit.kitTypeId | gxType}}</td>
 						<td>{{kit.serialNmbr}}</td>
 					</tr>
 				</tbody>
@@ -39,8 +39,8 @@
 				</thead>
 				
 				<tbody >
-					<tr data-ng-repeat="kit in kits" >
-						<td>{{kit.kitTypeId}}</td>
+					<tr data-ng-repeat="kit in kits | completed:false" >
+						<td>{{kit.kitTypeId | gxType }}</td>
 						<td>{{kit.serialNmbr}}</td>
 					</tr>
 				</tbody>
