@@ -15,31 +15,31 @@ angular.module('kits').factory('Kits', ['$resource',
 
 angular.module('kits').filter('gxType', function(){
 	return function(input){
-		return input == 0? "GX-5" : "GX-35";	
-	}
-})
+		return input === 0? 'GX-5' : 'GX-35';	
+	};
+});
 
 angular.module('kits').filter('completed', function(){
 	return function(input, complete){
 		var output = [];
-		if(complete){
+		if (complete){
 			var i = 0;
 			var l = input.length;
 			for(i = 0; i < l; i++){
-				if(!input[i].missingParts || input[i].missingParts.length == 0){
+				if(!input[i].missingParts || input[i].missingParts.length === 0){
 					output.push(input[i]);
 				}
 			}
 		}
-		else{
-			var i = 0;
-			var l = input.length;
-			for(i = 0; i < l; i++){
-				if(input[i].missingParts.length > 0){
-					output.push(input[i]);
+		else {
+			var j = 0;
+			var len = input.length;
+			for(j = 0; j < len; j++){
+				if(input[j].missingParts.length > 0){
+					output.push(input[j]);
 				}
 			}
 		}
 		return output;
-	}	
-})
+	};	
+});
