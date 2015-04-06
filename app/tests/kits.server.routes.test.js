@@ -4,9 +4,9 @@ var should = require('should'),
 	request = require('supertest'),
 	app = require('../../server'),
 	mongoose = require('mongoose'),
-	agent = request.agent(app);
-   // Kit = mongoose.model('Kit'),
-   // KitType = mongoose.model('KitType')
+	agent = request.agent(app),
+    Kit = mongoose.model('Kit'),
+    KitType = mongoose.model('KitType');
 
 /**
  * Globals
@@ -17,7 +17,7 @@ var kit, kitType;
  * Kit routes tests
  */
 describe('Kit CRUD tests', function() {
-	/*beforeEach(function(done) {
+	beforeEach(function(done) {
         kit = {
             serialNmbr: '123456789',
             kitTypeId: '1'
@@ -27,8 +27,7 @@ describe('Kit CRUD tests', function() {
 		done();
 	});
 
-     Might need this test once part gets implemented 
-	it('should be able to save a kit', function(done) {
+/*	it('should be able to save a kit', function(done) {
 		agent.post('/kits')
 			.send(kit)
 			.expect(200)
@@ -41,10 +40,10 @@ describe('Kit CRUD tests', function() {
 						// Handle kit save error
 						if (kitsGetErr) done(kitsGetErr);
 						// Get kit list
-						var kit = kitsGetRes.body;
+						var kits = kitsGetRes.body;
 						// Set assertions
-						(kit[0].serialNmbr).match('123456789');
-						(partTypes[0].kitTypeId).match('1');
+						(kits[0].serialNmbr).match('123456789');
+						(kits[0].kitTypeId).match('1');
 						// Call the assertion callback
 						done();
 					});
@@ -70,7 +69,7 @@ describe('Kit CRUD tests', function() {
 		// Invalidate partName field
 		kit.kitTypeId = '';
 			agent.post('/kit')
-				.send(partType)
+				.send(kit)
 				.expect(400)
 				.end(function(kitSaveErr, kitSaveRes) {
 					// Set message assertion
@@ -85,7 +84,7 @@ describe('Kit CRUD tests', function() {
 		// Invalidate kitTypeId field
 		kit.kitTypeID = '3';
 			agent.post('/kits')
-				.send(partType)
+				.send(kit)
 				.expect(400)
 				.end(function(kitSaveErr, kitSaveRes) {
 					// Handle partType save error
@@ -93,34 +92,34 @@ describe('Kit CRUD tests', function() {
 				});
 	});
 
-	it('should be able to update a partType', function(done) {
-				// Save a new partType
-				agent.post('/inventory')
-					.send(partType)
+	it('should be able to update a kit', function(done) {
+		// Save a new partType
+		agent.post('/inventory')
+			.send(kit)
+			.expect(200)
+			.end(function(kitSaveErr, kitSaveRes) {
+				// Handle kit save error
+				if (kitSaveErr) done(kitSaveErr);
+
+				// Update serial number
+				kit.serialNmbr = 'WHY YOU GOTTA BE SO MEAN?';
+
+				// Update an existing kit
+				agent.put('/inventory/' + kitSaveRes.body._id)
+					.send(kit)
 					.expect(200)
-					.end(function(partTypeSaveErr, partTypeSaveRes) {
-						// Handle partType save error
-						if (partTypeSaveErr) done(partTypeSaveErr);
+					.end(function(kitUpdateErr, kitUpdateRes) {
+						// Handle partType update error
+						if (kitUpdateErr) done(kitUpdateErr);
 
-						// Update Part Name
-						partType.partName = 'WHY YOU GOTTA BE SO MEAN?';
+						// Set assertions
+						(kitUpdateRes.body._id).should.equal(kitSaveRes.body._id);
+						(kitUpdateRes.body.serialNmbr).should.match('WHY YOU GOTTA BE SO MEAN?');
 
-						// Update an existing partType
-						agent.put('/inventory/' + partTypeSaveRes.body._id)
-							.send(partType)
-							.expect(200)
-							.end(function(partTypeUpdateErr, partTypeUpdateRes) {
-								// Handle partType update error
-								if (partTypeUpdateErr) done(partTypeUpdateErr);
-
-								// Set assertions
-								(partTypeUpdateRes.body._id).should.equal(partTypeSaveRes.body._id);
-								(partTypeUpdateRes.body.partName).should.match('WHY YOU GOTTA BE SO MEAN?');
-
-								// Call the assertion callback
-								done();
-							});
+						// Call the assertion callback
+						done();
 					});
+			});
 	});
 
 	it('should not be able to update a partType with missing information', function(done) {
@@ -218,8 +217,8 @@ describe('Kit CRUD tests', function() {
 					});
 	});
 
-	it('should return error for deleting partType which doesnt exist', function(done) {
-		agent.delete('/inventory/test')
+	it('should return error for deleting kit which doesnt exist', function(done) {
+		agent.delete('/kits/test')
 			.expect(400)
 			.end(function(req, res) {
 
@@ -228,9 +227,8 @@ describe('Kit CRUD tests', function() {
 			});
 	});
 */
-
 	afterEach(function(done) {
-		kit.remove().exec();
+		//kit.remove().exec();
 		done();
 	});
 });

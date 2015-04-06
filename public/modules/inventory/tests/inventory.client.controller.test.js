@@ -78,7 +78,7 @@
 			// Test scope value
 			expect(scope.inventory).toEqualData(sampleInventory);
 		}));
-
+		
 		it('$scope.findOne() should create an array with one partType object fetched from XHR using a partId URL parameter', inject(function(Inventory) {
 			// Define a sample partType object
 			var samplePart = new Inventory({
@@ -223,11 +223,28 @@
 			expect(scope.inventory.length).toBe(0);
 		}));
 		
-		it('$scope.updateQuantity() should update a quantity of an item', inject(function(Inventory) {
+		it('$scope.updateQuantity() should increment the quantity of an item', inject(function(Inventory) {
 			// Create new partType object
 			var samplePart = new Inventory({
 				_id: '525a8422f6d0f87f0e407a33',
 				quantity: 0
+			});
+
+			// Create new inventory array and include the partType
+			scope.inventory = [samplePart];
+
+			// Run controller functionality
+			scope.updateQuantity(samplePart, 1);
+
+			// Test array after successful update
+			expect(samplePart.quantity).toBe(1);
+		}));
+		
+		it('$scope.updateQuantity() should decrement the quantity of an item', inject(function(Inventory) {
+			// Create new partType object
+			var samplePart = new Inventory({
+				_id: '525a8422f6d0f87f0e407a33',
+				quantity: 3
 			});
 
 			// Create new inventory array and include the partType

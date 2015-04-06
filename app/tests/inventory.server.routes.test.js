@@ -10,13 +10,14 @@ var should = require('should'),
 /**
  * Globals
  */
-var partType;
+var partType, partTypeExist;
 
 /**
  * PartType routes tests
  */
 describe('PartType CRUD tests', function() {
 	beforeEach(function(done) {
+		// Test data of new item
         partType = {
             category: 'Sample Category',
             partName: 'Sample Name',
@@ -29,6 +30,21 @@ describe('PartType CRUD tests', function() {
             GX35_amount: '2',
             quantity:'3'
         };
+		
+		// Test data of pre-existing item
+		partTypeExist = {
+			id: '5512a7a4f5c98870042b7688',
+            category: 'Fasteners and Mounting Hardware',
+            partName: 'Zip-tie',
+            vendor: 'Digi-Key',
+            vndrPartNmbr: 'A112496-ND',
+            manufacturer: 'TE Connectivity',
+            mnfPartNmbr: 'A77912-000',
+            price: '0.11',
+            GX5_amount: '6',
+            GX35_amount: '7',
+			quantity:'3'
+		};
 		done();
 	});
 
@@ -55,21 +71,21 @@ describe('PartType CRUD tests', function() {
 					});
 			});
 	});
-
+	
 	it('should not be able to save a partType if no name is provided', function(done) {
 		// Invalidate partName field
 		partType.partName = '';
 		
-				agent.post('/inventory')
-					.send(partType)
-					.expect(400)
-					.end(function(partTypeSaveErr, partTypeSaveRes) {
-						// Set message assertion
-						(partTypeSaveRes.body.message).should.match('Part must have a name');
+			agent.post('/inventory')
+				.send(partType)
+				.expect(400)
+				.end(function(partTypeSaveErr, partTypeSaveRes) {
+					// Set message assertion
+					(partTypeSaveRes.body.message).should.match('Part must have a name');
 						
-						// Handle partType save error
-						done(partTypeSaveErr);
-					});
+					// Handle partType save error
+					done(partTypeSaveErr);
+				});
 	});
 
 	it('should not be able to save a partType if no amount is provided', function(done) {
@@ -77,16 +93,16 @@ describe('PartType CRUD tests', function() {
 		partType.GX5_amount = '';
 		partType.GX35_amount = '';
 		
-				agent.post('/inventory')
-					.send(partType)
-					.expect(400)
-					.end(function(partTypeSaveErr, partTypeSaveRes) {
-						// Set message assertion
-						(partTypeSaveRes.body.message).should.match('Part must have an amount');
+			agent.post('/inventory')
+				.send(partType)
+				.expect(400)
+				.end(function(partTypeSaveErr, partTypeSaveRes) {
+					// Set message assertion
+					(partTypeSaveRes.body.message).should.match('Part must have an amount');
 						
-						// Handle partType save error
-						done(partTypeSaveErr);
-					});
+					// Handle partType save error
+					done(partTypeSaveErr);
+				});
 	});
 
 	it('should not be able to save a partType if invalid amount', function(done) {
@@ -94,31 +110,30 @@ describe('PartType CRUD tests', function() {
 		partType.GX5_amount = 'amount';
 		partType.GX35_amount = 'numbers';
 		
-				agent.post('/inventory')
-					.send(partType)
-					.expect(400)
-					.end(function(partTypeSaveErr, partTypeSaveRes) {
-						// Handle partType save error
-						done(partTypeSaveErr);
-					});
+			agent.post('/inventory')
+				.send(partType)
+				.expect(400)
+				.end(function(partTypeSaveErr, partTypeSaveRes) {
+					// Handle partType save error
+					done(partTypeSaveErr);
+				});
 	});
 
 	it('should not be able to save a partType if no price is provided', function(done) {
 		// Invalidate partName field
 		partType.price = '';
 		
-				agent.post('/inventory')
-					.send(partType)
-					.expect(400)
-					.end(function(partTypeSaveErr, partTypeSaveRes) {
-						// Set message assertion
-						(partTypeSaveRes.body.message).should.match('Part must have a price');
-						
-						// Handle partType save error
-						done(partTypeSaveErr);
-					});
+			agent.post('/inventory')
+				.send(partType)
+				.expect(400)
+				.end(function(partTypeSaveErr, partTypeSaveRes) {
+					// Set message assertion
+					(partTypeSaveRes.body.message).should.match('Part must have a price');
+					
+					// Handle partType save error
+					done(partTypeSaveErr);
+				});
 	});
-
 
 	it('should not be able to save a partType if no price is provided', function(done) {
 		// Invalidate partName field
@@ -135,83 +150,82 @@ describe('PartType CRUD tests', function() {
 					});
 	});
 
-
-
 	it('should be able to update a partType', function(done) {
-				// Save a new partType
-				agent.post('/inventory')
+		// Save a new partType
+		agent.post('/inventory')
+			.send(partType)
+			.expect(200)
+			.end(function(partTypeSaveErr, partTypeSaveRes) {
+				// Handle partType save error
+				if (partTypeSaveErr) done(partTypeSaveErr);
+
+				// Update Part Name
+				partType.partName = 'WHY YOU GOTTA BE SO MEAN?';
+
+				// Update an existing partType
+				agent.put('/inventory/' + partTypeSaveRes.body._id)
 					.send(partType)
 					.expect(200)
-					.end(function(partTypeSaveErr, partTypeSaveRes) {
-						// Handle partType save error
-						if (partTypeSaveErr) done(partTypeSaveErr);
+					.end(function(partTypeUpdateErr, partTypeUpdateRes) {
+						// Handle partType update error
+						if (partTypeUpdateErr) done(partTypeUpdateErr);
 
-						// Update Part Name
-						partType.partName = 'WHY YOU GOTTA BE SO MEAN?';
+						// Set assertions
+						(partTypeUpdateRes.body._id).should.equal(partTypeSaveRes.body._id);
+						(partTypeUpdateRes.body.partName).should.match('WHY YOU GOTTA BE SO MEAN?');
 
-						// Update an existing partType
-						agent.put('/inventory/' + partTypeSaveRes.body._id)
-							.send(partType)
-							.expect(200)
-							.end(function(partTypeUpdateErr, partTypeUpdateRes) {
-								// Handle partType update error
-								if (partTypeUpdateErr) done(partTypeUpdateErr);
-
-								// Set assertions
-								(partTypeUpdateRes.body._id).should.equal(partTypeSaveRes.body._id);
-								(partTypeUpdateRes.body.partName).should.match('WHY YOU GOTTA BE SO MEAN?');
-
-								// Call the assertion callback
-								done();
-							});
+						// Call the assertion callback
+						done();
 					});
+			});
 	});
 
 	it('should not be able to update a partType with missing information', function(done) {
-				// Save a new partType
-				agent.post('/inventory')
+		// Save a new partType
+		agent.post('/inventory')
+			.send(partType)
+			.expect(200)
+			.end(function(partTypeSaveErr, partTypeSaveRes) {
+				// Handle partType save error
+				if (partTypeSaveErr) done(partTypeSaveErr);
+
+				// Update Part Name
+				partType.partName = '';
+
+				// Update an existing partType
+				agent.put('/inventory/' + partTypeSaveRes.body._id)
 					.send(partType)
-					.expect(200)
-					.end(function(partTypeSaveErr, partTypeSaveRes) {
-						// Handle partType save error
-						if (partTypeSaveErr) done(partTypeSaveErr);
-
-						// Update Part Name
-						partType.partName = '';
-
-						// Update an existing partType
-						agent.put('/inventory/' + partTypeSaveRes.body._id)
-							.send(partType)
-							.expect(400)
-							.end(function(partTypeUpdateErr, partTypeUpdateRes) {
-								// Handle partType update error
-								done(partTypeUpdateErr);
-							});
+					.expect(400)
+					.end(function(partTypeUpdateErr, partTypeUpdateRes) {
+						// Handle partType update error
+						done(partTypeUpdateErr);
 					});
+			});
 	});
 
 	it('should not be able to update a partType with invalid information', function(done) {
-				// Save a new partType
-				agent.post('/inventory')
+		// Save a new partType
+		agent.post('/inventory')
+			.send(partType)
+			.expect(200)
+			.end(function(partTypeSaveErr, partTypeSaveRes) {
+				// Handle partType save error
+				if (partTypeSaveErr) done(partTypeSaveErr);
+
+				// Update Part Name
+				partType.price = 'a lot of money';
+
+				// Update an existing partType
+				agent.put('/inventory/' + partTypeSaveRes.body._id)
 					.send(partType)
-					.expect(200)
-					.end(function(partTypeSaveErr, partTypeSaveRes) {
-						// Handle partType save error
-						if (partTypeSaveErr) done(partTypeSaveErr);
-
-						// Update Part Name
-						partType.price = 'a lot of money';
-
-						// Update an existing partType
-						agent.put('/inventory/' + partTypeSaveRes.body._id)
-							.send(partType)
-							.expect(400)
-							.end(function(partTypeUpdateErr, partTypeUpdateRes) {
-								// Handle partType update error
-								done(partTypeUpdateErr);
-							});
+					.expect(400)
+					.end(function(partTypeUpdateErr, partTypeUpdateRes) {
+						// Handle partType update error
+						done(partTypeUpdateErr);
 					});
+			});
 	});
+	
 	it('should be able to get a list of partTypes', function(done) {
 		// Create new partType model instance
 		var partTypeObj = new PartType(partType);
@@ -248,7 +262,6 @@ describe('PartType CRUD tests', function() {
 		});
 	});
 	
-
 	it('should return proper error for single partType which doesnt exist', function(done) {
 		request(app).get('/inventory/test')
 			.end(function(req, res) {
@@ -295,9 +308,155 @@ describe('PartType CRUD tests', function() {
 			});
 	});
 
+	it('should be able to find a pre-existing partType', function(done) {
+		agent.post('/inventory')
+			.send(partTypeExist)
+			.expect(200)
+			.end(function(partTypeSaveErr, partTypeSaveRes) {
+				// Handle partType save error
+				if (partTypeSaveErr) done(partTypeSaveErr);
+				// Get a list of partTypes
+				agent.get('/inventory')
+					.end(function(partTypesGetErr, partTypesGetRes) {
+						// Handle partType save error
+						if (partTypesGetErr) done(partTypesGetErr);
+						// Get partTypes list
+						var partTypes = partTypesGetRes.body;
+						// Set assertions
+						(partTypes[0].category).match('Fasteners and Mounting Hardware');
+						(partTypes[0].partName).match('Zip-tie');
+						// Call the assertion callback
+						done();
+					});
+			});
+	});
+	
+	it('should not be able to save an exisiting part type if no name is edited', function(done) {
+		// Invalidate partName field
+		partTypeExist.partName = '';
+		
+			agent.post('/inventory')
+				.send(partTypeExist)
+				.expect(400)
+				.end(function(partTypeSaveErr, partTypeSaveRes) {
+					// Set message assertion
+					(partTypeSaveRes.body.message).should.match('Part must have a name');
+						
+					// Handle partType save error
+					done(partTypeSaveErr);
+				});
+	});
+	
+	it('should not be able to save an exisiting part type if no amount is edited', function(done) {
+		// Invalidate partName field
+		partTypeExist.GX5_amount = '';
+		partTypeExist.GX35_amount = '';
+		
+			agent.post('/inventory')
+				.send(partTypeExist)
+				.expect(400)
+				.end(function(partTypeSaveErr, partTypeSaveRes) {
+					// Set message assertion
+					(partTypeSaveRes.body.message).should.match('Part must have an amount');
+						
+					// Handle partType save error
+					done(partTypeSaveErr);
+				});
+	});
 
+	it('should not be able to save an exisiting part type if invalid amount is edited', function(done) {
+		// Invalidate partName field
+		partTypeExist.GX5_amount = 'amount';
+		partTypeExist.GX35_amount = 'numbers';
+		
+			agent.post('/inventory')
+				.send(partTypeExist)
+				.expect(400)
+				.end(function(partTypeSaveErr, partTypeSaveRes) {
+					// Handle partType save error
+					done(partTypeSaveErr);
+				});
+	});
+	
+	it('should be able to update an exisiting partType', function(done) {
+		// Get exisiting partType
+		agent.post('/inventory')
+			.send(partTypeExist)
+			.expect(200)
+			.end(function(partTypeSaveErr, partTypeSaveRes) {
+				// Handle partType save error
+				if (partTypeSaveErr) done(partTypeSaveErr);
+
+				// Update Part Name
+				partTypeExist.partName = 'WHY YOU GOTTA BE SO MEAN?';
+
+				// Update an existing partType
+				agent.put('/inventory/' + partTypeSaveRes.body._id)
+					.send(partTypeExist)
+					.expect(200)
+					.end(function(partTypeUpdateErr, partTypeUpdateRes) {
+						// Handle partType update error
+						if (partTypeUpdateErr) done(partTypeUpdateErr);
+
+						// Set assertions
+						(partTypeUpdateRes.body._id).should.equal(partTypeSaveRes.body._id);
+						(partTypeUpdateRes.body.partName).should.match('WHY YOU GOTTA BE SO MEAN?');
+
+						// Call the assertion callback
+						done();
+					});
+			});
+	});
+	
+	it('should not be able to update an exisiting partType with missing information', function(done) {
+		// Get exisiting partType
+		agent.post('/inventory')
+			.send(partTypeExist)
+			.expect(200)
+			.end(function(partTypeSaveErr, partTypeSaveRes) {
+				// Handle partType save error
+				if (partTypeSaveErr) done(partTypeSaveErr);
+
+				// Update Part Name
+				partTypeExist.partName = '';
+
+				// Update an existing partType
+				agent.put('/inventory/' + partTypeSaveRes.body._id)
+					.send(partTypeExist)
+					.expect(400)
+					.end(function(partTypeUpdateErr, partTypeUpdateRes) {
+						// Handle partType update error
+						done(partTypeUpdateErr);
+					});
+			});
+	});
+	
+	it('should not be able to update an exisiting partType with invalid information', function(done) {
+		// Get exisiting partType
+		agent.post('/inventory')
+			.send(partTypeExist)
+			.expect(200)
+			.end(function(partTypeSaveErr, partTypeSaveRes) {
+				// Handle partType save error
+				if (partTypeSaveErr) done(partTypeSaveErr);
+
+				// Update Part Name
+				partTypeExist.price = '$$$';
+
+				// Update an existing partType
+				agent.put('/inventory/' + partTypeSaveRes.body._id)
+					.send(partTypeExist)
+					.expect(400)
+					.end(function(partTypeUpdateErr, partTypeUpdateRes) {
+						// Handle partType update error
+						done(partTypeUpdateErr);
+					});
+			});
+	});
+	
 	afterEach(function(done) {
 		PartType.remove().exec();
 		done();
 	});
 });
+

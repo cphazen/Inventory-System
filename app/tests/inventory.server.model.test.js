@@ -10,7 +10,7 @@ var should = require('should'),
 /**
  * Globals
  */
-var partType;
+var partType, partTypeExist;
 
 /**
  * Unit tests
@@ -18,6 +18,7 @@ var partType;
 
 describe('PartType Model Unit Tests:', function() {
     beforeEach(function(done) {
+		// Test data for adding new item to the inventory system
         partType = new PartType({
             category: 'Sample Category',
             partName: 'Sample Name',
@@ -30,11 +31,11 @@ describe('PartType Model Unit Tests:', function() {
             GX35_amount: '2',
             quantity:'3'
         });
-            done();
+        done();
     });
 
 	describe('Method Save', function() {
-		it('should had not new parts yet', function(done) {
+		it('should had not have new parts', function(done) {
 			PartType.find({}, function(err, partType) {
 				partType.should.have.length(0);
 				done();
@@ -57,8 +58,16 @@ describe('PartType Model Unit Tests:', function() {
 			});
 		});
 
-		it('should be able to show an error when try to save without gx5_amount or gx_35 amount', function(done) {
+		it('should be able to show an error when try to save without gx5_amount', function(done) {
 			partType.GX5_amount = '';
+
+			return partType.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+		
+		it('should be able to show an error when try to save without gx_35 amount', function(done) {
 			partType.GX35_amount = '';
 
 			return partType.save(function(err) {
@@ -69,6 +78,15 @@ describe('PartType Model Unit Tests:', function() {
 
 		it('should show an error when try to save without price', function(done) {
 			partType.price = '';
+
+			return partType.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+		
+		it('should show an error when try to save without category', function(done) {
+			partType.category = '';
 
 			return partType.save(function(err) {
 				should.exist(err);
