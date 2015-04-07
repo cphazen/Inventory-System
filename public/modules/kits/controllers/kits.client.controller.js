@@ -49,6 +49,22 @@ angular.module('kits').controller('KitsController', ['$scope', '$stateParams', '
             });
         };
 
+		$scope.complete = function(kit) {
+			// TODO: Check if the inventory has these parts
+
+			kit.missingParts = [];
+			kit.$update(function() {}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		$scope.makeSystem = function(kit) {
+			kit.isSystem = true;
+			kit.$update(function() {}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
 		$scope.find = function() {
 			$scope.kits = Kits.query();
 		};

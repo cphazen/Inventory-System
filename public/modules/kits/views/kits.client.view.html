@@ -12,13 +12,21 @@
 					<tr>
 						<th>Type</th>
 						<th>Serial Number</th>
+                        <th>Actions</th>
 					</tr>
 				</thead>
-				
-				<tbody >
-					<tr data-ng-repeat="kit in kits | completed:true" >
+
+				<tbody>
+					<tr data-ng-repeat="kit in kits | filter: { isSystem: false } | completed: true">
 						<td>{{kit.kitTypeId | gxType}}</td>
 						<td>{{kit.serialNmbr}}</td>
+                        <td>
+                            <div class="btn-group btn-group-xs">
+                                <a class="btn btn-default" data-tooltip="Make this kit into a system" ng-click="makeSystem(kit)">
+                                    <i class="glyphicon glyphicon-ok"></i>
+                                </a>
+                            </div>
+                        </td>
 					</tr>
 				</tbody>
 			</table>
@@ -35,13 +43,23 @@
 					<tr>
 						<th>Type</th>
 						<th>Serial Number</th>
+                        <th>Missing Parts</th>
+                        <th>Action</th>
 					</tr>
 				</thead>
-				
-				<tbody >
-					<tr data-ng-repeat="kit in kits | completed:false" >
+
+				<tbody>
+					<tr data-ng-repeat="kit in kits | completed: false">
 						<td>{{kit.kitTypeId | gxType }}</td>
 						<td>{{kit.serialNmbr}}</td>
+                        <td><a>{{kit.missingParts.length}}</a></td>
+                        <td>
+                            <div class="btn-group btn-group-xs">
+                                <a class="btn btn-default" data-tooltip="Complete this kit" ng-click="complete(kit)">
+                                    <i class="glyphicon glyphicon-ok"></i>
+                                </a>
+                            </div>
+                        </td>
 					</tr>
 				</tbody>
 			</table>
