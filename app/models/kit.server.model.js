@@ -36,13 +36,18 @@ var kitSchema = new Schema({
     },
     kitTypeId: {
         type: Number,
-        ref: 'KitType'
+        ref: 'KitType',
+        required: 'Kit must have a Kit Type'
     },
     isSystem: {
         type: Boolean,
         default: false
     }
+});
 
+// A kit is considered "completed" if it does not have any missing parts
+kitSchema.virtual('completed').get(function() {
+    return this.missingParts.length === 0;
 });
 
 mongoose.model('Kit', kitSchema);
