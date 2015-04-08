@@ -9,6 +9,7 @@ module.exports = function(app) {
     // System Routes
     app.route('/systems')
         .get(systems.list)
+        .post(systems.create);
 
     app.route('/systems/:systemId')
         .get(systems.read)

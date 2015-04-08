@@ -5,9 +5,26 @@
  */
 var mongoose = require('mongoose'),
     errorHandler = require('./errors.server.controller'),
-    System = mongoose.model('Kit'),
+    _System = mongoose.model('System'),
     _ = require('lodash');
 
+/**
+ * Create a system
+ */
+exports.create = function(req, res) {
+    var system = new _System(req.body);
+    system.user = req.user;
+
+    system.save(function(err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.json(system);
+        }
+    });
+};
 
 /**
  * Show the current system
@@ -53,10 +70,10 @@ exports.delete = function(req, res) {
 };
 
 /**
- * List of Systems
+ * List of aSystems
  */
 exports.list = function(req, res) {
-    System.find({isSystem : true}).exec(function(err, systems) {
+    _System.sort('-created').populate('kit', 'serialNmbr').exec(function(err, systems) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -78,7 +95,7 @@ exports.systemByID = function(req, res, next, id) {
         });
     }
 
-    System.find({isSystem : true}).findById(id).exec(function(err, system) {
+    _System.findById(id).populate('kit', 'serialNmbr').exec(function(err, system) {
         if (err) return next(err);
         if (!system) {
             return res.status(404).send({
