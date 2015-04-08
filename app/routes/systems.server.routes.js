@@ -8,8 +8,7 @@ var systems = require('../../app/controllers/systems.server.controller');
 module.exports = function(app) {
     // System Routes
     app.route('/systems')
-        .get(systems.list)
-        .post(systems.create);
+        .get(systems.list);
 
     app.route('/systems/:systemId')
         .get(systems.read)
