@@ -11,7 +11,7 @@ exports.config = {
 	suites: {
 		homepage: 'spec/homepage.js',
 		inventory: 'spec/inventory.js',
-		// kits: 'spec/kit.js',
+		kit: 'spec/kit.js',
 		//system: 'spec/system.js'
 	},
 	

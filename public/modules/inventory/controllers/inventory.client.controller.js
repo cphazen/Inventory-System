@@ -2,9 +2,9 @@
 
 angular.module('inventory').controller('InventoryController', ['$scope', '$stateParams', '$location', 'Authentication', 'Inventory', '$window',
 	function($scope, $stateParams, $location, Authentication, Inventory, $window) {
-		$scope.authentication = Authentication;
-
-        $scope.create = function() {
+		//$scope.authentication = Authentication;
+		
+		$scope.create = function() {
             var partType = new Inventory({
                 category: this.category,
                 partName: this.partName,

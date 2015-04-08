@@ -7,7 +7,7 @@
 		var KitsController,
 			scope,
 			$httpBackend,
-			$stateParams,
+			$stateParams, 
 			$location;
 
 		// The $resource service augments the response object with methods for updating and deleting the resource.
@@ -49,18 +49,18 @@
 				$scope: scope
 			});
 		}));
-		/*
+/*		
 		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Inventory) {
 			// Create a sample partType object
-			var samplePartPostData = new Kits({
+			var sampleKitPostData = new Kits({
                 serialNmbr: '123456789',
                 kitTypeId: '1'
                 //missingParts: this.missingParts,
                 //isSystem: this.isSystem
             });
 
-			// Create a sample partType response
-			var samplePartResponse = new Kits({
+			// Create a sample kit response
+			var sampleKitResponse = new Kits({
                 serialNmbr: '123456789',
                 kitTypeId: '1'
                 //missingParts: this.missingParts,
@@ -72,7 +72,7 @@
             scope.kitTypeId = '1';
 
 			// Set POST response
-			$httpBackend.expectPOST('kits', samplePartPostData).respond(samplePartResponse);
+			$httpBackend.expectPOST('kits', sampleKitPostData).respond(sampleKitResponse);
 
 			// Run controller functionality
 			scope.create();
@@ -82,7 +82,7 @@
 			expect(scope.serialNmbr).toEqual('');
 			expect(scope.kitTypeId).toEqual('');
 
-			// Test URL redirection after the partType was created
+			// Test URL redirection after the kit was created
 			expect($location.path()).toBe('/kits');
 		}));
 		
