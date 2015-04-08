@@ -49,17 +49,33 @@
 				</thead>
 
 				<tbody>
-					<tr data-ng-repeat="kit in kits | completed: false">
+					<tr ng-init="showMissing = false" data-ng-repeat-start="kit in kits | completed: false">
 						<td>{{kit.kitTypeId | gxType }}</td>
 						<td>{{kit.serialNmbr}}</td>
-                        <td><a>{{kit.missingParts.length}}</a></td>
-                        <td>
-                            <div class="btn-group btn-group-xs">
-                                <a class="btn btn-default" data-tooltip="Complete this kit" ng-click="complete(kit)">
-                                    <i class="glyphicon glyphicon-ok"></i>
-                                </a>
-                            </div>
-                        </td>
+                				<td><a ng-click="showMissing  = !showMissing">{{kit.missingParts.length}}</a></td>
+                				<td>
+                					<div class="btn-group btn-group-xs">
+                            					<a class="btn btn-default" data-tooltip="Complete this kit" ng-click="$parent.complete(element)">
+                               						<i class="glyphicon glyphicon-ok"></i>
+       		                     				</a>
+        	                			</div>
+            					</td>
+					</tr>
+					<tr data-ng-if="showMissing" data-ng-repeat-end>
+						<td colspan="4">
+							<table class="table table-striped table-bordered">
+								<thead>
+									<th>Part</th>
+									<th>Quantity Missing</th>				
+								</thead>
+								<tbody>
+									<tr data-ng-repeat="part in kit.missingParts">
+										<td>{{part._id}}</td>
+										<td>{{part.quantity}}</td>					
+									</tr>				
+								</tbody>	
+							</table>
+						</td>
 					</tr>
 				</tbody>
 			</table>
