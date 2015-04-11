@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module('kits').controller('KitsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Kits',
-	function($scope, $stateParams, $location, Authentication, Kits) {
+var kits = angular.module('kits');
+
+kits.controller('KitsController', [
+	'$scope', '$stateParams', '$location', '$modal', 'Authentication', 'Kits', 'Inventory',
+	function($scope, $stateParams, $location, $modal, Authentication, Kits, Inventory) {
 		$scope.authentication = Authentication;
 
         $scope.create = function() {
@@ -50,11 +53,40 @@ angular.module('kits').controller('KitsController', ['$scope', '$stateParams', '
         };
 
 		$scope.complete = function(kit) {
-			// TODO: Check if the inventory has these parts
+			var inventory = Inventory.query(function() {
+				$scope.updateParts = {};
+				$scope.missingParts = [];
+				var i, part, missing, inventory_map = {};
+				for (i in inventory) {
+					inventory_map[inventory[i]._id] = inventory[i];
+				}
 
-			kit.missingParts = [];
-			kit.$update(function() {}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
+				for (i in kit.missingParts) {
+					missing = kit.missingParts[i];
+					part = inventory_map[missing._id];
+					$scope.missingParts.push({
+						quantity: missing.quantity,
+						available: part.quantity,
+						name: part.partName
+					})
+					if (part.quantity > 0)
+						$scope.updateParts[missing._id] = Math.min(part.quantity, missing.quantity);
+				}
+
+				// $scope.updateParts is an object with the ID of each part we can add as the key and the quantity of parts we can add as the value.
+				console.log($scope.updateParts);
+				$modal.open({
+					templateUrl: 'missingPartsModal.html',
+					controller: 'missingPartsModal',
+					resolve: {
+						parts: function() {
+							return $scope.missingParts;
+						}
+					}
+				}).result.then(function (parts) {
+					kit.missingParts = [];
+					kit.$update();
+				});
 			});
 		};
 
@@ -76,3 +108,16 @@ angular.module('kits').controller('KitsController', ['$scope', '$stateParams', '
 		};
 	}
 ]);
+
+kits.controller('missingPartsModal', function($scope, $modalInstance, parts) {
+	$scope.parts = parts;
+
+	$scope.ok = function() {
+		$modalInstance.close($scope.parts);
+	};
+
+	$scope.cancel = function() {
+		console.log($scope.parts);
+		$modalInstance.dismiss('cancel');
+	};
+});

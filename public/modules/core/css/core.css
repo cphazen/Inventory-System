@@ -31,6 +31,6 @@ body.ng-cloak
 	opacity:.5;
 }
 
-.dropdown-toggle {
+.clickable, .dropdown-toggle {
     cursor: pointer;
 }
