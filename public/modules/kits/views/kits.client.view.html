@@ -1,84 +1,101 @@
 <section data-ng-controller="KitsController" data-ng-init="find()">
-<div class="page-header">
-    <h1>Kits</h1>
-</div>
-<div>
-	<h3>Completed Kits</h3>
-</div>
-<div class="row">
-		<div class="col-md-12">
-			<table class="table table-striped table-bordered">
-				<thead>
-					<tr>
-						<th>Type</th>
-						<th>Serial Number</th>
-                        <th>Actions</th>
-					</tr>
-				</thead>
+    <div class="page-header">
+        <h1>Kits</h1>
+    </div>
+    <div>
+    	<h3>Completed Kits</h3>
+    </div>
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th>Type</th>
+				<th>Serial Number</th>
+                <th>Actions</th>
+			</tr>
+		</thead>
 
-				<tbody>
-					<tr data-ng-repeat="kit in kits | filter: { isSystem: false } | completed: true">
-						<td>{{kit.kitTypeId | gxType}}</td>
-						<td>{{kit.serialNmbr}}</td>
-                        <td>
-                            <div class="btn-group btn-group-xs">
-                                <a class="btn btn-default" data-tooltip="Make this kit into a system" ng-click="makeSystem(kit)">
-                                    <i class="glyphicon glyphicon-ok"></i>
-                                </a>
-                            </div>
-                        </td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-</div>
+		<tbody>
+			<tr data-ng-repeat="kit in kits | filter: { isSystem: false } | completed: true">
+				<td>{{kit.kitTypeId | gxType}}</td>
+				<td>{{kit.serialNmbr}}</td>
+                <td>
+                    <div class="btn-group btn-group-xs">
+                        <a class="btn btn-default" data-tooltip="Make this kit into a system" ng-click="makeSystem(kit)">
+                            <i class="glyphicon glyphicon-ok"></i>
+                        </a>
+                    </div>
+                </td>
+			</tr>
+		</tbody>
+	</table>
 
-<div>
-	<h3>Incomplete Kits</h3>
-</div>
-<div class="row">
-		<div class="col-md-12">
-			<table class="table table-striped table-bordered">
-				<thead>
-					<tr>
-						<th>Type</th>
-						<th>Serial Number</th>
-                        <th>Missing Parts</th>
-                        <th>Action</th>
-					</tr>
-				</thead>
+    <div>
+    	<h3>Incomplete Kits</h3>
+    </div>
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th>Type</th>
+				<th>Serial Number</th>
+                <th>Missing Parts</th>
+                <th>Action</th>
+			</tr>
+		</thead>
 
-				<tbody>
-					<tr ng-init="showMissing = false" data-ng-repeat-start="kit in kits | completed: false">
-						<td>{{kit.kitTypeId | gxType }}</td>
-						<td>{{kit.serialNmbr}}</td>
-                				<td><a ng-click="showMissing  = !showMissing">{{kit.missingParts.length}}</a></td>
-                				<td>
-                					<div class="btn-group btn-group-xs">
-                            					<a class="btn btn-default" data-tooltip="Complete this kit" ng-click="complete(kit)">
-                               						<i class="glyphicon glyphicon-ok"></i>
-       		                     				</a>
-        	                			</div>
-            					</td>
-					</tr>
-					<tr data-ng-if="showMissing" data-ng-repeat-end>
-						<td colspan="4">
-							<table class="table table-striped table-bordered">
-								<thead>
-									<th>Part</th>
-									<th>Quantity Missing</th>				
-								</thead>
-								<tbody>
-									<tr data-ng-repeat="part in kit.missingParts">
-										<td>{{part._id}}</td>
-										<td>{{part.quantity}}</td>					
-									</tr>				
-								</tbody>	
-							</table>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-</div>
+		<tbody>
+			<tr ng-init="showMissing = false" data-ng-repeat-start="kit in kits | completed: false">
+				<td>{{kit.kitTypeId | gxType}}</td>
+				<td>{{kit.serialNmbr}}</td>
+                <td><a ng-click="showMissing = !showMissing" class="clickable">{{kit.missingParts.length}}</a></td>
+                <td>
+                    <div class="btn-group btn-group-xs">
+                        <a class="btn btn-default" data-tooltip="Complete this kit" ng-click="complete(kit)">
+                            <i class="glyphicon glyphicon-ok"></i>
+                        </a>
+                    </div>
+                </td>
+			</tr>
+
+			<tr data-ng-if="showMissing" data-ng-repeat-end>
+				<td colspan="4" style="padding: 0">
+					<table class="table table-striped" style="margin-bottom: 0">
+						<thead>
+							<th>Part</th>
+							<th>Quantity Missing</th>
+						</thead>
+						<tbody>
+							<tr data-ng-repeat="part in kit.missingParts">
+								<td>{{part._id}}</td>
+								<td>{{part.quantity}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </section>
+
+<script type="text/ng-template" id="missingPartsModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Update Missing Parts</h3>
+    </div>
+    <div class="modal-body">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <th>Part</th>
+                <th>Available/Required</th>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="missing in parts">
+                    <td>{{ missing.name }}</td>
+                    <td>{{ missing.available }}/{{ missing.quantity }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">Move Parts</button>
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
