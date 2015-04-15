@@ -9,7 +9,7 @@
   <li> Once a kit is manufactured into a system, the user can keep track of the status and possibly the QC data for that system</li>
 </ol>
 
-<p><strong>Next sprint: </strong>April 7 </p>
+<p><strong>Last sprint: </strong>April 22 </p>
 
 <p><a href="https://trello.com/b/qtd5n2dX/">User Stories</a></p>
 <p>Landing page's screenshot is located in Trello</p>
