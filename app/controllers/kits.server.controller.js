@@ -88,17 +88,55 @@ exports.read = function(req, res) {
 exports.update = function(req, res) {
     var kit = req.kit;
 
-    kit = _.extend(kit, req.body);
+    console.log(kit);
 
-    kit.save(function(err) {
-        if (err) {
-            return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
+    var newMissingParts = [];
+
+    async.forEach(kit.missingParts, function (missingPart, callback) {
+        PartType.findById(missingPart._id, function (err, partType) {
+            //console.log('i: ' + partType);
+            //if (err) return console.log(err);
+            var qty = partType.quantity - missingPart.quantity;
+            //console.log(partType.quantity + ' - ' + missingPart.quantity + ' = ' + qty);
+            if (qty >= 0) {
+                partType.quantity = qty;
+                partType.save(function (err) {
+                    if (err) {
+                        return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                        });
+                    }
+                });
+            }
+            else {
+                partType.quantity = 0;
+                partType.save(function (err) {
+                    if (err) {
+                        return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                        });
+                    }
+                });
+                qty = qty * -1; //make positive
+                newMissingParts.push({_id: missingPart._id, quantity: qty});
+            }
+            callback();
+        });
+        }, function(err){
+            if (err) return console.log(err);
+
+            kit.missingParts = newMissingParts;
+
+            kit.save(function(err) {
+                if (err) {
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                } else {
+                    res.json(kit);
+                }
             });
-        } else {
-            res.json(kit);
-        }
-    });
+        });
 };
 
 /**
