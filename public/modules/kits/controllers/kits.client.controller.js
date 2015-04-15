@@ -84,7 +84,7 @@ kits.controller('KitsController', [
 						}
 					}
 				}).result.then(function (parts) {
-					kit.missingParts = [];
+					//kit.missingParts = [];
 					kit.$update();
 				});
 			});
