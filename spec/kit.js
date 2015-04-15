@@ -266,9 +266,13 @@ describe('Protractor testing on the kit view', function() {
 					elm[0].click();
 			});
 			
+			browser.driver.sleep(50);
+
 			// should get a update missing parts popup
 			expect(element.all(by.css('[class="modal-title"]')).isDisplayed()).toBeTruthy();
 			
+			browser.driver.sleep(50);
+
 			// so click add all the missing parts
 			browser.driver.actions().mouseMove(element(by.css('[ng-click="ok()"]'))).perform();
 				element.all(by.css('[ng-click="ok()"]')).then(function (elm) {
@@ -276,7 +280,7 @@ describe('Protractor testing on the kit view', function() {
 				})
 		});	
 		
-		it('Make change a kit to be a system', function () {
+		it('Make a kit into a system', function () {
 		
 			// clicks the kit button
 			element.all(by.css('[class="btn btn-primary btn-md"]')).get(1).click();
@@ -300,6 +304,8 @@ describe('Protractor testing on the kit view', function() {
 			
 			// verify that the right button was click
 			expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/kits');
+			
+			browser.driver.sleep(50);
 			
 			// get the first complete kit and submit it be a system
 			browser.driver.actions().mouseMove(element(by.css('[ng-click="makeSystem(kit)"]'))).perform();
