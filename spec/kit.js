@@ -14,19 +14,6 @@ describe('Protractor testing on the kit view', function() {
 	});
 
 	describe('Kit testing', function() {
-		var kit;
-		
-		beforeEach(function() {
-			browser.get('http://localhost:3000/#!/');
-			
-			// Create a data model to use in test
-			kit = {
-				serialNmbr: '123456789',
-                kitTypeId: '1'
-                //missingParts: this.missingParts,
-                //isSystem: this.isSystem
-			};
-		});
 		
 		it('View the list of complete/uncomplete kit', function () {
 		
@@ -172,6 +159,83 @@ describe('Protractor testing on the kit view', function() {
 			expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/kits/create');
 		});
 		
+		it('Should get a popup when clicking an incomplete kit to complete', function () {
+			// clicks the kit button
+			element.all(by.css('[class="btn btn-primary btn-md"]')).get(1).click();
+			
+			// verify that the button was click
+			browser.get('http://localhost:3000/#!/kits').then(function() {
+				expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/kits');
+			});
+			
+			// Move mouse over the kit dropdown options
+			browser.driver.actions().mouseMove(element(by.css('[ng-switch-when="dropdown"]'))).perform();
+				element.all(by.css('[ng-switch-when="dropdown"]')).then(function (elm) {
+					elm[2].click();
+			});
+			
+			// Click the create kit option
+			browser.driver.actions().mouseMove(element(by.css('[href="/#!/kits"]'))).perform();
+				element.all(by.css('[href="/#!/kits"]')).then(function (elm) {
+					elm[0].click();
+			});
+			
+			// verify that the right button was click
+			expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/kits');
+			
+			// get the first uncomplete kit and automatically change it to complete
+			browser.driver.actions().mouseMove(element(by.css('[ng-click="complete(kit)"]'))).perform();
+				element.all(by.css('[ng-click="complete(kit)"]')).then(function (elm) {
+					elm[0].click();
+			});
+			
+			// should get a update missing parts popup
+			expect(element.all(by.css('[class="modal-title"]')).isDisplayed()).toBeTruthy();
+		});
+		
+		it('Cancel button on missing part popup is enable', function () {
+			// clicks the kit button
+			element.all(by.css('[class="btn btn-primary btn-md"]')).get(1).click();
+			
+			// verify that the button was click
+			browser.get('http://localhost:3000/#!/kits').then(function() {
+				expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/kits');
+			});
+			
+			// Move mouse over the kit dropdown options
+			browser.driver.actions().mouseMove(element(by.css('[ng-switch-when="dropdown"]'))).perform();
+				element.all(by.css('[ng-switch-when="dropdown"]')).then(function (elm) {
+					elm[2].click();
+			});
+			
+			// Click the create kit option
+			browser.driver.actions().mouseMove(element(by.css('[href="/#!/kits"]'))).perform();
+				element.all(by.css('[href="/#!/kits"]')).then(function (elm) {
+					elm[0].click();
+			});
+			
+			// verify that the right button was click
+			expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/kits');
+			
+			// get the first uncomplete kit and automatically change it to complete
+			browser.driver.actions().mouseMove(element(by.css('[ng-click="complete(kit)"]'))).perform();
+				element.all(by.css('[ng-click="complete(kit)"]')).then(function (elm) {
+					elm[0].click();
+			});
+			
+			// should get a update missing parts popup
+			expect(element.all(by.css('[class="modal-title"]')).isDisplayed()).toBeTruthy();
+			
+			// click cancel button
+			browser.driver.actions().mouseMove(element(by.css('[ng-click="cancel()"]'))).perform();
+				element.all(by.css('[ng-click="cancel()"]')).then(function (elm) {
+					elm[0].click();
+				})
+				
+			// verify that the right button was click
+			expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/kits');		
+		});
+		
 		it('Change an incomplete kit to complete', function () {
 			// clicks the kit button
 			element.all(by.css('[class="btn btn-primary btn-md"]')).get(1).click();
@@ -201,6 +265,15 @@ describe('Protractor testing on the kit view', function() {
 				element.all(by.css('[ng-click="complete(kit)"]')).then(function (elm) {
 					elm[0].click();
 			});
+			
+			// should get a update missing parts popup
+			expect(element.all(by.css('[class="modal-title"]')).isDisplayed()).toBeTruthy();
+			
+			// so click add all the missing parts
+			browser.driver.actions().mouseMove(element(by.css('[ng-click="ok()"]'))).perform();
+				element.all(by.css('[ng-click="ok()"]')).then(function (elm) {
+					elm[0].click();
+				})
 		});	
 		
 		it('Make change a kit to be a system', function () {

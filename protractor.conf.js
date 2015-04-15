@@ -12,7 +12,7 @@ exports.config = {
 		homepage: 'spec/homepage.js',
 		inventory: 'spec/inventory.js',
 		kit: 'spec/kit.js',
-		//system: 'spec/system.js'
+		system: 'spec/system.js'
 	},
 	
 	// The timeout (in ms) for each script to run on the browser 

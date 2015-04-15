@@ -19,7 +19,7 @@ describe('Protractor testing on the homepage', function() {
 		});		
 	});
 
-	describe('Chicking the inventory button', function() {
+	describe('Clicking the inventory button', function() {
 		it('Click the Inventory button', function () {
 			// clicks the first button
 			element.all(by.css('[class="list-unstyled action-list"]')).get(0).click();
@@ -124,19 +124,17 @@ describe('Protractor testing on the homepage', function() {
 		});		
 	});
 	
-	/*
 	describe('Checking the system button', function() {
 		it('Click the System button', function () {
-			// clicks the second button
+			// clicks the system button
 			element.all(by.css('[class="btn btn-primary btn-md"]')).get(2).click();
 			
 			browser.driver.sleep(50);
 			
 			// verify that the button was click
-			browser.get('http://localhost:3000/#!/system').then(function() {
-				expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/system');
+			browser.get('http://localhost:3000/#!/systems').then(function() {
+				expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/systems');
 			});
 		});		
 	});
-	*/
 })

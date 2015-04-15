@@ -44,13 +44,6 @@ describe('Protractor testing on the inventory view', function() {
 				expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/inventory');
 			});
 			
-			/*describe('should get original count of inventory items', function() {
-				it('should get count of inventory items', function() {
-					var invList = element.all(by.repeater('partType in inventory | orderBy:partSort:partReverse | filter:partQuery'));
-					expect(invList.count()).toEqual(1);
-				}); 				
-			});*/
-
 			// Move mouse over the create new inventory part
 			browser.driver.actions().mouseMove(element(by.css('[ng-switch-when="dropdown"]'))).perform();
 				element.all(by.css('[ng-switch-when="dropdown"]')).then(function (elm) {
@@ -87,7 +80,7 @@ describe('Protractor testing on the inventory view', function() {
 			
 		});
 		
-		it('Search for an item ', function() {
+		it('Search for new item ', function() {
 			// clicks the inventory button
 			element.all(by.css('[class="list-unstyled action-list"]')).get(0).click();
 			
@@ -103,6 +96,24 @@ describe('Protractor testing on the inventory view', function() {
 			// verify that the item is there
 			var invList = element.all(by.repeater('partType in inventory | orderBy:partSort:partReverse | filter:partQuery'));
 			expect(invList.count()).toEqual(1);
+		})
+		
+		it('Search for an exisiting item ', function() {
+			// clicks the inventory button
+			element.all(by.css('[class="list-unstyled action-list"]')).get(0).click();
+			
+			// verify that the button was click
+			browser.get('http://localhost:3000/#!/inventory').then(function() {
+				expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/inventory');
+			});
+			
+			// search for the new item
+			element.all(by.model('partQuery')).sendKeys('green');
+			element.all(by.id('part-search')).click();
+			
+			// verify that there is only 2 part found 
+			var invList = element.all(by.repeater('partType in inventory | orderBy:partSort:partReverse | filter:partQuery'));
+			expect(invList.count()).toEqual(2);
 		})
 		
 		it('Increment and decrement a part', function() {
@@ -179,7 +190,7 @@ describe('Protractor testing on the inventory view', function() {
 			});
 		})
 		
-		it('Remove a part', function() {
+		it('Remove a part button is enable', function() {
 			// clicks the inventory button
 			element.all(by.css('[class="list-unstyled action-list"]')).get(0).click();
 			
@@ -193,7 +204,7 @@ describe('Protractor testing on the inventory view', function() {
 			element.all(by.id('part-search')).click();
 			
 			// check that remove button is enable
-			//expect(element.all(by.css('[class="glyphicon glyphicon-remove"]'))).toBe(true);
+			expect(element.all(by.css('[class="glyphicon glyphicon-remove"]')).isDisplayed()).toBeTruthy();
 		})
 	})
 })

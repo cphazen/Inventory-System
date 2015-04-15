@@ -18,23 +18,23 @@ var kit, kitType;
  */
 describe('Kit CRUD tests', function() {
 	beforeEach(function(done) {
-        kit = {
-            serialNmbr: '123456789',
-            kitTypeId: '1'
+        kit = new Kit({
+            serialNmbr: '123',
+            kitTypeId: 1
             //missingParts: this.missingParts,
             //isSystem: this.isSystem
-        };
-		done();
+        });
+        done();
 	});
 
-	it('should be able to save a kit', function(done) {
+/*	it('should be able to save a kit', function(done) {
 		agent.post('/kits')
 			.send(kit)
 			.expect(200)
 			.end(function(kitSaveErr, kitSaveRes) {
 				// Handle kit save error
 				if (kitSaveErr) done(kitSaveErr);
-				/*// Get a list of kits
+				// Get a list of kits
 				agent.get('/kits')
 					.end(function(kitsGetErr, kitsGetRes) {
 						// Handle kit save error
@@ -46,7 +46,7 @@ describe('Kit CRUD tests', function() {
 						(kits[0].kitTypeId).match('1');
 						// Call the assertion callback
 						done();
-					});*/
+					});
 					done();
 			});
 	});
@@ -65,7 +65,7 @@ describe('Kit CRUD tests', function() {
 					done(kitSaveErr);
 				});
 	});
-/*
+
 	it('should not be able to save a kit if no kitTypeId is provided', function(done) {
 		// Invalidate kitTypeId field
 		kit.kitTypeId = '';
@@ -145,15 +145,15 @@ describe('Kit CRUD tests', function() {
 							});
 					});
 	});
+*/
+	it('should be able to get a list of kits', function(done) {
+		// Create new kit model instance
+		var kitObj = new Kit(kit);
 
-	it('should be able to get a list of partTypes', function(done) {
-		// Create new partType model instance
-		var partTypeObj = new PartType(partType);
-
-		// Save the partType
-		partTypeObj.save(function() {
-			// Request partTypes
-			request(app).get('/inventory')
+		// Save the kit
+		kitObj.save(function() {
+			// Request kits
+			request(app).get('/kits')
 				.end(function(req, res) {
 					// Set assertion
 					res.body.should.be.an.Array.with.lengthOf(1);
@@ -164,70 +164,69 @@ describe('Kit CRUD tests', function() {
 
 		});
 	});
-    
-	it('should be able to get a single partType', function(done) {
-		// Create new partType model instance
-		var partTypeObj = new PartType(partType);
+ /*   
+	it('should be able to get a single kit', function(done) {
+		// Create new kit model instance
+		var kitObj = new Kit(kit);
 
 		// Save the partType
-		partTypeObj.save(function() {
-			request(app).get('/inventory/' + partTypeObj._id)
+		kitObj.save(function() {
+			request(app).get('/kits/' + kitObj._id)
 				.end(function(req, res) {
 					// Set assertion
-					res.body.should.be.an.Object.with.property('partName', partType.partName);
+					res.body.should.be.an.Object.with.property('1', kit.kitTypeId);
 
 					// Call the assertion callback
 					done();
 				});
 		});
 	});
-	
-	it('should return proper error for single partType which doesnt exist', function(done) {
-		request(app).get('/inventory/test')
+*/	
+	it('should return proper error for single kit which doesnt exist', function(done) {
+		request(app).get('/kits/test')
 			.end(function(req, res) {
 				// Set assertion
-				res.body.should.be.an.Object.with.property('message', 'PartType is invalid');
+				res.body.should.be.an.Object.with.property('message', 'Kit is invalid');
 
 				// Call the assertion callback
 				done();
 			});
 	});
-
-	it('should be able to delete a partType', function(done) {
-				agent.post('/inventory')
-					.send(partType)
+/*
+	it('should be able to delete a kit', function(done) {
+				agent.post('/kits')
+					.send(kit)
 					.expect(200)
-					.end(function(partTypeSaveErr, partTypeSaveRes) {
-						// Handle partType save error
-						if (partTypeSaveErr) done(partTypeSaveErr);
+					.end(function(kitsSaveErr, kitsSaveRes) {
+						// Handle kit save error
+						if (kitsSaveErr) done(kitsSaveErr);
 
-						// Delete an existing partType
-						agent.delete('/inventory/' + partTypeSaveRes.body._id)
-							.send(partType)
+						// Delete an existing kit
+						agent.delete('/kits/' + kitsSaveRes.body._id)
+							.send(kit)
 							.expect(200)
-							.end(function(partTypeDeleteErr, partTypeDeleteRes) {
-								// Handle partType error error
-								if (partTypeDeleteErr) done(partTypeDeleteErr);
+							.end(function(kitsDeleteErr, kitsDeleteRes) {
+								// Handle kit error error
+								if (kitsDeleteErr) done(kitsDeleteErr);
 
 								// Set assertions
-								(partTypeDeleteRes.body._id).should.equal(partTypeSaveRes.body._id);
+								(kitsDeleteRes.body._id).should.equal(kitsSaveRes.body._id);
 
 								// Call the assertion callback
 								done();
 							});
 					});
 	});
-
+*/
 	it('should return error for deleting kit which doesnt exist', function(done) {
 		agent.delete('/kits/test')
 			.expect(400)
 			.end(function(req, res) {
-
 				// Call the assertion callback
 				done();
 			});
 	});
-*/
+
 	afterEach(function(done) {
 		//kit.remove().exec();
 		done();
