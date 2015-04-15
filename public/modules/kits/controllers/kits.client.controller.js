@@ -68,7 +68,7 @@ kits.controller('KitsController', [
 						quantity: missing.quantity,
 						available: part.quantity,
 						name: part.partName
-					})
+					});
 					if (part.quantity > 0)
 						$scope.updateParts[missing._id] = Math.min(part.quantity, missing.quantity);
 				}
