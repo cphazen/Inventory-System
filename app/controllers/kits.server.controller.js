@@ -88,7 +88,7 @@ exports.read = function(req, res) {
 exports.update = function(req, res) {
     var kit = req.kit;
 
-    console.log(kit);
+    //console.log(kit);
 
     var newMissingParts = [];
 
@@ -125,6 +125,7 @@ exports.update = function(req, res) {
         }, function(err){
             if (err) return console.log(err);
 
+            kit = _.extend(kit, req.body);
             kit.missingParts = newMissingParts;
 
             kit.save(function(err) {
