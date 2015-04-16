@@ -34,3 +34,6 @@ body.ng-cloak
 .clickable, .dropdown-toggle {
     cursor: pointer;
 }
+.sortable-column a{
+	cursor:pointer;
+}
