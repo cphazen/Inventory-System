@@ -65,7 +65,7 @@
 						</thead>
 						<tbody>
 							<tr data-ng-repeat="part in kit.missingParts">
-								<td>{{part._id}}</td>
+								<td>{{part._id | asPartName: inventory}}</td>
 								<td>{{part.quantity}}</td>
 							</tr>
 						</tbody>
