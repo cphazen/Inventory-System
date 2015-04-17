@@ -29,14 +29,14 @@ exports.create = function(req, res) {
  * Show the current Part
  */
 exports.read = function(req, res) {
-	res.json(req.part);
+	res.json(req.parts);
 };
 
 /**
  * Update a Part
  */
 exports.update = function(req, res) {
-	var part = req.part;
+	var part = req.parts;
 
 	part = _.extend(part, req.body);
 
@@ -55,7 +55,7 @@ exports.update = function(req, res) {
  * Delete a Part
  */
 exports.delete = function(req, res) {
-	var part = req.part;
+	var part = req.parts;
 
 	part.remove(function(err) {
 		if (err) {
@@ -105,7 +105,7 @@ exports.partByID = function(req, res, next, id) {
   				message: 'Part not found'
   			});
 		}
-		req.part = part;
+		req.parts = part;
 		next();
 	});
 };
