@@ -14,10 +14,9 @@ var partSchema = new Schema({
 		default: '',
 		trim: true
 	},
-	firmWare: {
-		type: String,
-		default: '',
-		trim: true
+	isUsed: {
+		type: Boolean,
+		default: false 
 	},
 	Type: {
 		type: mongoose.Schema.Types.ObjectId,
