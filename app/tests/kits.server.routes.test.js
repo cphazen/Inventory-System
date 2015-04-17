@@ -124,26 +124,26 @@ describe('Kit CRUD tests', function() {
 	});
 
 	it('should not be able to update a kit with missing information', function(done) {
-				// Save a new kit
-				agent.post('/kits')
+		// Save a new kit
+		agent.post('/kits')
+			.send(kit)
+			.expect(200)
+			.end(function(kitSaveErr, kitSaveRes) {
+				// Handle kit save error
+				if (kitSaveErr) done(kitSaveErr);
+
+				// Update kit
+				kit.serialNmbr = '';
+
+				// Update an existing kit
+				agent.put('/kits/' + kitSaveRes.body._id)
 					.send(kit)
-					.expect(200)
-					.end(function(kitSaveErr, kitSaveRes) {
-						// Handle kit save error
-						if (kitSaveErr) done(kitSaveErr);
-
-						// Update kit
-						kit.serialNmbr = '';
-
-						// Update an existing kit
-						agent.put('/kits/' + kitSaveRes.body._id)
-							.send(kit)
-							.expect(400)
-							.end(function(kitUpdateErr, kitUpdateRes) {
-								// Handle kit update error
-								done(kitUpdateErr);
-							});
+					.expect(400)
+					.end(function(kitUpdateErr, kitUpdateRes) {
+						// Handle kit update error
+						done(kitUpdateErr);
 					});
+			});
 	});
 */
 	it('should be able to get a list of kits', function(done) {

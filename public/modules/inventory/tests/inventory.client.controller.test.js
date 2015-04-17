@@ -251,10 +251,10 @@
 			scope.inventory = [samplePart];
 
 			// Run controller functionality
-			scope.updateQuantity(samplePart, 1);
+			scope.updateQuantity(samplePart, 2);
 
 			// Test array after successful update
-			expect(samplePart.quantity).toBe(1);
+			expect(samplePart.quantity).toBe(2);
 		}));
 	});
 }());
