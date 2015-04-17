@@ -43,3 +43,17 @@ angular.module('kits').filter('completed', function(){
 		return output;
 	};	
 });
+
+
+angular.module('kits').filter('asPartName', function(){
+	return function(input, reference){
+		var i = 0;
+		var l = reference.length;
+		for(i = 0; i < l; i++){
+			if(input === reference[i]._id){
+				return reference[i].partName;
+			}
+		}
+		return 'Could not find part name';
+	}
+});

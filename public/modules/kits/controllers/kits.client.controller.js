@@ -6,7 +6,7 @@ kits.controller('KitsController', [
 	'$scope', '$stateParams', '$location', '$modal', 'Authentication', 'Kits', 'Inventory',
 	function($scope, $stateParams, $location, $modal, Authentication, Kits, Inventory) {
 		$scope.authentication = Authentication;
-
+		$scope.inventory = Inventory.query();
         $scope.create = function() {
             var kit = new Kits({
                 serialNmbr: this.serialNmbr,
