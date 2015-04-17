@@ -54,6 +54,6 @@ angular.module('kits').filter('asPartName', function(){
 				return reference[i].partName;
 			}
 		}
-		return "Could not find part name";
+		return 'Could not find part name';
 	}
 });
