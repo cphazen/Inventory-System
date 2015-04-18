@@ -16,7 +16,7 @@ angular.module('parts').controller('PartsController', ['$scope', '$modalInstance
             part.$save(function() {
                 $scope.serialNmbr = '';
                 partType.quantity += 1;
-                partType.$save(function(errorResponse) {
+                partType.$update(function(errorResponse) {
                     $scope.error = errorResponse.data.message;
                 });
             }, function(errorResponse) {
