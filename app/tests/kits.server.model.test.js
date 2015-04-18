@@ -43,11 +43,51 @@ describe('Kits Model Unit Tests:', function() {
 				done();
 			});
 		});
+		
+		it('should be able to save with a new kitTypeId', function(done) {
+			kit.kitTypeId = '0';
+			return kit.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+		
+		it('should be able to show an error when try to save a kitTypeId using alphabetic character', function(done) {
+			kit.kitTypeId = 'abc';
+			return kit.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
 
 		it('should be able to show an error when try to save without a serial number', function(done) {
 			kit.serialNmbr = '';
 			return kit.save(function(err) {
 				should.exist(err);
+				done();
+			});
+		});
+		
+		it('should be able to save with a numeric serial number', function(done) {
+			kit.serialNmbr = '12342';
+			return kit.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+		
+		it('should be able to save with alphabetic serial number', function(done) {
+			kit.serialNmbr = 'fdsg';
+			return kit.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+		
+		it('should be able to save with a combination of alphabetic and numeric serial number', function(done) {
+			kit.serialNmbr = 'DT1042';
+			return kit.save(function(err) {
+				should.not.exist(err);
 				done();
 			});
 		});
@@ -69,7 +109,7 @@ describe('Kits Model Unit Tests:', function() {
 			});
 		});
 	});
-
+	
 	afterEach(function(done) {
 		Kit.remove().exec();
 		done();

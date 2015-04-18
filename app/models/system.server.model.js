@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
 /**
  * System Schema
  */
-var SystemSchema = new Schema({
+var systemSchema = new Schema({
     created: {
         type: Date,
         default: Date.now
@@ -25,4 +25,4 @@ var SystemSchema = new Schema({
     }
 });
 
-mongoose.model('System', SystemSchema);
+mongoose.model('System', systemSchema);

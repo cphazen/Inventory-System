@@ -49,6 +49,17 @@ describe('PartType Model Unit Tests:', function() {
 			});
 		});
 		
+		it('list should now have incremented', function(done) {
+			partType.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+			PartType.find({}, function(err, partType) {
+				partType.should.have.length(1);
+				done();
+			});
+		});
+		
 		it('should be able to show an error when try to save without partName', function(done) {
 			partType.partName = '';
 
@@ -57,9 +68,43 @@ describe('PartType Model Unit Tests:', function() {
 				done();
 			});
 		});
+		
+		it('should be able to save with an alphabetic partName', function(done) {
+			partType.partName = 'PartName';
+			return partType.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
 
+		it('should be able to save with an numeric partName', function(done) {
+			partType.partName = '158';
+			return partType.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+		
 		it('should be able to show an error when try to save without gx5_amount', function(done) {
 			partType.GX5_amount = '';
+
+			return partType.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+		
+		it('should be able to save with a gx5_amount', function(done) {
+			partType.GX5_amount = '1';
+
+			return partType.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+		
+		it('should be able to show an error when try to save with an alphabetic gx_5 amount', function(done) {
+			partType.GX5_amount = 'hrf';
 
 			return partType.save(function(err) {
 				should.exist(err);
@@ -75,7 +120,25 @@ describe('PartType Model Unit Tests:', function() {
 				done();
 			});
 		});
+		
+		it('should be able to show an error when try to save with an alphabetic gx_35 amount', function(done) {
+			partType.GX35_amount = 'hrf';
 
+			return partType.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+		
+		it('should be able to save with a gx_35 amount', function(done) {
+			partType.GX35_amount = '2';
+
+			return partType.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+		
 		it('should show an error when try to save without price', function(done) {
 			partType.price = '';
 

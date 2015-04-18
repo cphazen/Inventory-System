@@ -34,6 +34,20 @@ describe('Protractor testing on the inventory view', function() {
 			};
 		});
 		
+		it('Check inventory list with not added item yet', function() {
+			// clicks the inventory button
+			element.all(by.css('[class="list-unstyled action-list"]')).get(0).click();
+			
+			// verify that the button was click
+			browser.get('http://localhost:3000/#!/inventory').then(function() {
+				expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/inventory');
+			});
+			
+			// verify that there is only 2 part found 
+			var invList = element.all(by.repeater('partType in inventory | orderBy:partSort:partReverse | filter:partQuery'));
+			expect(invList.count()).toEqual(75);
+		})
+		
 		it('Adding an item to the inventory button', function () {
 		
 			// clicks the inventory button
@@ -80,7 +94,7 @@ describe('Protractor testing on the inventory view', function() {
 			
 		});
 		
-		it('Search for new item ', function() {
+		it('Search for new item', function() {
 			// clicks the inventory button
 			element.all(by.css('[class="list-unstyled action-list"]')).get(0).click();
 			
