@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var parts = require('../../app/controllers/part.server.controller');
+var parts = require('../../app/controllers/parts.server.controller.js');
 
 module.exports = function(app) {
     // PartType Routes

@@ -41,7 +41,7 @@ angular.module('kits').filter('completed', function(){
 			}
 		}
 		return output;
-	};	
+	};
 });
 
 
@@ -55,5 +55,5 @@ angular.module('kits').filter('asPartName', function(){
 			}
 		}
 		return 'Could not find part name';
-	}
+	};
 });

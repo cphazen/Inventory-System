@@ -1,0 +1,15 @@
+
+<div class="modal-header"><h3>Add New Part</h3></div>
+<form name="partForm" ng-submit="create()" novalidate>
+    <fieldset>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="serialNmbr">Serial Number: </label>
+                <input class="form-control" data-ng-model="serialNmbr" type="text" name="serialNmbr" id="serialNmbr" ng-minlength="1" required/>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn" ng-disabled="partForm.$invalid" >Submit</button>
+        </div>
+    </fieldset>
+</form>

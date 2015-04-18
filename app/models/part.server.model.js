@@ -12,7 +12,8 @@ var partSchema = new Schema({
 	serialNmbr: {
 		type: String,
 		default: '',
-		trim: true
+		trim: true,
+		required: 'Part must have a serial number'
 	},
 	isUsed: {
 		type: Boolean,

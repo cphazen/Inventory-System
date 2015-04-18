@@ -1,8 +1,7 @@
 'use strict';
 
-angular.module('inventory').controller('InventoryController', ['$scope', '$stateParams', '$location', 'Authentication', 'Inventory', '$window',
-	function($scope, $stateParams, $location, Authentication, Inventory, $window) {
-		//$scope.authentication = Authentication;
+angular.module('inventory').controller('InventoryController', ['$scope', '$stateParams', '$location', '$modal', 'Inventory', '$window',
+	function($scope, $stateParams, $location, $modal, Inventory, $window) {
 		
 		$scope.create = function() {
             var partType = new Inventory({
@@ -62,11 +61,24 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
         };
 
 		$scope.updateQuantity = function (partType, newVal){
-			// only for parts that do NOT use part schema
-			partType.quantity = newVal;
-			partType.$update(partType, function (errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
+			if(partType.hasSerialNmbr){
+				$modal.open({
+					templateUrl: 'modules/inventory/modals/parts.client.modal.html',
+					controller: 'PartsController',
+					//scope: $scope,
+					resolve: {
+						partType: function () {
+							return partType;
+						}
+					}
+				});
+			} else {
+				// only for parts that do NOT use part schema
+				partType.quantity = newVal;
+				partType.$update(partType, function (errorResponse) {
+					$scope.error = errorResponse.data.message;
+				});
+			}
 		};
 
 		$scope.updateInline = function(partType) {
@@ -118,7 +130,7 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
 			var rem = $window.confirm('Are you sure you want to permanently delete "' + partType.partName + '"?');
 			if(rem) $scope.remove(partType);
 		};
-		
+
 		// add part
 		/*$scope.addPart = function(){
 			var partType2 = new Inventory({

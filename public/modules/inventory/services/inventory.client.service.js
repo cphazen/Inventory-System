@@ -1,6 +1,6 @@
 'use strict';
 
-//Articles service used for communicating with the articles REST endpoints
+//Inventory service used for communicating with the inventory REST endpoints
 angular.module('inventory').factory('Inventory', ['$resource',
 	function($resource) {
 		return $resource('inventory/:partId', {

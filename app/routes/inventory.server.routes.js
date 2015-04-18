@@ -11,12 +11,12 @@ module.exports = function(app) {
         .get(partType.list)
         .post(partType.create);
 
-    app.route('/inventory/:partId')
+    app.route('/inventory/:inventoryItemId')
         .get(partType.read)
         .put(partType.update)
         .delete(partType.delete);
 
 
     // Finish by binding the article middleware
-    app.param('partId', partType.partTypeByID);
+    app.param('inventoryItemId', partType.partTypeByID);
 };
