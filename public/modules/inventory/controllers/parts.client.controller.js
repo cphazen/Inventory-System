@@ -16,7 +16,7 @@ angular.module('parts').controller('PartsController', ['$scope', '$modalInstance
             //console.log(theseParts);
 
         //console.log(partType._id);
-        $scope.findParts();
+
         $scope.create = function(){
             //console.log(partType + ' SERIAL NUMBER: ' + this.serialNmbr);
 
