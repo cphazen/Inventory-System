@@ -7,11 +7,11 @@ var parts = require('../../app/controllers/parts.server.controller.js');
 
 module.exports = function(app) {
     // PartType Routes
-    app.route('/inventory/parts')
+    app.route('/parts')
         .get(parts.list)
         .post(parts.create);
 
-    app.route('/inventory/parts/:partId')
+    app.route('/parts/:partId')
         .get(parts.read)
         .put(parts.update)
         .delete(parts.delete);

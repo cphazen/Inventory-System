@@ -3,8 +3,20 @@
 angular.module('parts').controller('PartsController', ['$scope', '$modalInstance', 'Parts', 'partType',
     function($scope, $modalInstance, Parts, partType) {
 
-        //console.log(partType._id);
+        $scope.serialNmbrs = [];
 
+            //var parts = Parts.query();
+            //var theseParts = [];
+            //var l = parts.length;
+            //console.log(l);
+            //for (var i = 0; i < l; i++) {
+            //    if (parts[i].Type == partType._id) { theseParts.push(parts[i].serialNmbr); }
+            //    console.log(parts[i].Type + ":" + partType._id);
+            //}
+            //console.log(theseParts);
+
+        //console.log(partType._id);
+        $scope.findParts();
         $scope.create = function(){
             //console.log(partType + ' SERIAL NUMBER: ' + this.serialNmbr);
 

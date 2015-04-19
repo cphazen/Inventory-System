@@ -6,6 +6,12 @@
             <div class="form-group">
                 <label for="serialNmbr">Serial Number: </label>
                 <input class="form-control" data-ng-model="serialNmbr" type="text" name="serialNmbr" id="serialNmbr" ng-minlength="1" required/>
+                 <ui-select multiple tagging ng-model="parts" theme="bootstrap">
+                    <ui-select-match placeholder="Select serial Number...">{{$item}}</ui-select-match>
+                    <ui-select-choices repeat="n in [] | filter:$select.search">
+                        {{n}}
+                    </ui-select-choices>
+                 </ui-select>
             </div>
         </div>
         <div class="modal-footer">
