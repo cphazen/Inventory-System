@@ -5,15 +5,16 @@ angular.module('parts').controller('PartsController', ['$scope', '$modalInstance
 
         $scope.serialNmbrs = [];
 
-            //var parts = Parts.query();
-            //var theseParts = [];
-            //var l = parts.length;
-            //console.log(l);
-            //for (var i = 0; i < l; i++) {
-            //    if (parts[i].Type == partType._id) { theseParts.push(parts[i].serialNmbr); }
-            //    console.log(parts[i].Type + ":" + partType._id);
-            //}
-            //console.log(theseParts);
+        var p = Parts.query(
+            function (data) {
+                var theseParts = [];
+                var l = data.length;
+                for (var i = 0; i < l; i++) {
+                    if (data[i].Type == partType._id) { theseParts.push(data[i].serialNmbr); }
+                }
+                $scope.serialNmbrs = theseParts;
+            }
+        );
 
         //console.log(partType._id);
 
