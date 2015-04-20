@@ -13,7 +13,7 @@ angular.module('parts').controller('PartsController', ['$scope', '$modalInstance
                 var theseParts = [];
                 var l = data.length;
 				for (var i = 0; i < l; i++) {
-                    if (data[i].Type == partType._id) {
+                    if (data[i].Type === partType._id) {
                         theseParts.push(data[i].serialNmbr);
                         oldParts.push(data[i]);
                     }
@@ -58,12 +58,12 @@ angular.module('parts').controller('PartsController', ['$scope', '$modalInstance
             }
 
             // add all
-            for (var i = 0; i < l_new; i++) {
+            for (var a = 0; a < l_new; a++) {
                 found = false;
                 //check if exists in new array
-                for (var j = 0; j < l_old; j++) {
+                for (var k = 0; k < l_old; k++) {
                     //break if found
-                    if (oldParts[j].serialNmbr === $scope.sn.serialNmbrs[i]) {
+                    if (oldParts[k].serialNmbr === $scope.sn.serialNmbrs[a]) {
                         found = true;
                         break;
                     }
@@ -72,7 +72,7 @@ angular.module('parts').controller('PartsController', ['$scope', '$modalInstance
                 if (!found) {
                     //console.log('i add');
                     var part = new Parts({
-                        serialNmbr: $scope.sn.serialNmbrs[i],
+                        serialNmbr: $scope.sn.serialNmbrs[a],
                         Type: partType._id
                     });
 
@@ -90,7 +90,7 @@ angular.module('parts').controller('PartsController', ['$scope', '$modalInstance
 
             $scope.sn.serialNmbrs = [];
             $modalInstance.close();
-        }
+        };
         
         //console.log(partType._id);
 
