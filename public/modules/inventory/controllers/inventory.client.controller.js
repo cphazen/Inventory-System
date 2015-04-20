@@ -12,6 +12,7 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
                 manufacturer: this.manufacturer,
                 mnfPartNmbr: this.mnfPartNmbr,
                 price: this.price,
+                hasSerialNmbr: this.hasSerialNmbr,
                 GX5_amount: this.GX5_amount,
                 GX35_amount: this.GX35_amount,
                 quantity: this.quantity
@@ -26,6 +27,7 @@ angular.module('inventory').controller('InventoryController', ['$scope', '$state
                 $scope.manufacturer = '';
                 $scope.mnfPartNmbr = '';
                 $scope.price = '';
+		$scope.hasSerialNmbr = '';
                 $scope.GX5_amount = '';
                 $scope.GX35_amount = '';
                 $scope.quantity = '';

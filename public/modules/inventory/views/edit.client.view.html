@@ -63,10 +63,18 @@
 					<input class="form-control" type="text" ng-model="partType.price" name="price" id="price" />
 				</div>
 			</div>
+
+		<div class="form-group">
+			<div class="checkbox">
+				<label for="hasSerialNmbr"> 
+					<input type="checkbox" type="text" ng-model="partType.hasSerialNmbr" name="hasSerialNmbr" id="hasSerialNmbr" /> This type of part has a <strong>serial number</strong>.
+				</label>
+			</div>
+		</div>
 			<div class="form-group row">
 				<div class="col-md-4">
 					<label for="amount">Quantity (available now):</label>
-					<input class="form-control" type="text" ng-model="partType.quantity" name="quantity" id="quantity" />
+					<input class="form-control" type="text" ng-model="partType.quantity" name="quantity" id="quantity" ng-disabled="partType.hasSerialNmbr" />
 				</div>
 				<div class="col-md-4">
 					<label for="amount">Required for GX 35:</label>
