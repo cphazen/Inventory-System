@@ -5,7 +5,8 @@ var should = require('should'),
 	app = require('../../server'),
 	mongoose = require('mongoose'),
 	agent = request.agent(app),
-    system = mongoose.model('System');
+    System = mongoose.model('System'),
+    Kit = mongoose.model('Kit');
 
 /**
  * Globals
@@ -17,20 +18,28 @@ var sys;
  */
 describe('System CRUD tests', function() {
 	beforeEach(function(done) {
-        sys = new system({
-            created: Date.now,
-            kit: 1,
-            comment: 'Testing system data' 
+		// Create a kit to be turned into a system
+		var kit = new Kit({
+            serialNmbr: '123',
+            kitTypeId: 1,
+            missingParts: [],
+            isSystem: true
         });
-        done();
+		kit.save(function() {
+			System.findOne({kit: kit}, function(err, system) {
+				sys = system;
+				done();
+			});
+		});
 	});
 
 	it('should be able to get a list of system', function(done) {
 		// Create new system model instance
-		var systemObj = new system(sys);
+		var systemObj = new System(sys);
 
 		// Save the system
-		systemObj.save(function() {
+		systemObj.save(function(err) {
+			should.not.exist(err);
 			// Request systems
 			request(app).get('/systems')
 				.end(function(req, res) {
