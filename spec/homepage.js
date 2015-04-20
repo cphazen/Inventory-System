@@ -14,7 +14,7 @@ describe('Protractor testing on the homepage', function() {
 	});
 	
 	describe('Homepage buttons', function() {
-		it('Checking that the buttons on the homepage is enable', function () {
+		it('Checking that the buttons on the homepage is present', function () {
 			expect(element(by.css('a.btn.btn-primary.btn-md')).isPresent()).toBe(true);
 		});		
 	});

@@ -10,7 +10,7 @@ angular.module('parts').controller('PartsController', ['$scope', '$modalInstance
                 var theseParts = [];
                 var l = data.length;
                 for (var i = 0; i < l; i++) {
-                    if (data[i].Type == partType._id) { theseParts.push(data[i].serialNmbr); }
+                    if (data[i].Type === partType._id) { theseParts.push(data[i].serialNmbr); }
                 }
                 $scope.serialNmbrs = theseParts;
             }

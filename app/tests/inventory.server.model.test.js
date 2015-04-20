@@ -49,17 +49,6 @@ describe('PartType Model Unit Tests:', function() {
 			});
 		});
 		
-		it('list should now have incremented', function(done) {
-			partType.save(function(err) {
-				should.not.exist(err);
-				done();
-			});
-			PartType.find({}, function(err, partType) {
-				partType.should.have.length(1);
-				done();
-			});
-		});
-		
 		it('should be able to show an error when try to save without partName', function(done) {
 			partType.partName = '';
 
