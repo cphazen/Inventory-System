@@ -35,20 +35,31 @@ describe('PartType Model Unit Tests:', function() {
     });
 
 	describe('Method Save', function() {
-		it('should had not have new parts', function(done) {
+		it('should not have had new parts', function(done) {
 			PartType.find({}, function(err, partType) {
 				partType.should.have.length(0);
 				done();
 			});
 		});
-		
-		it('should be able to save without problems', function(done) {
+
+		it('should be able to run without problems', function(done) {
 			return partType.save(function(err) {
 				should.not.exist(err);
 				done();
 			});
 		});
-		
+
+		it('should increment list', function(done) {
+			partType.should.not.have.length();
+			return partType.save(function(err) {
+				should.not.exist(err);
+				PartType.find({}, function(err, partType) {
+					partType.should.have.length(1);
+					done();
+				});
+			});
+		});
+
 		it('should be able to show an error when try to save without partName', function(done) {
 			partType.partName = '';
 
@@ -57,7 +68,7 @@ describe('PartType Model Unit Tests:', function() {
 				done();
 			});
 		});
-		
+
 		it('should be able to save with an alphabetic partName', function(done) {
 			partType.partName = 'PartName';
 			return partType.save(function(err) {
@@ -73,7 +84,7 @@ describe('PartType Model Unit Tests:', function() {
 				done();
 			});
 		});
-		
+
 		it('should be able to show an error when try to save without gx5_amount', function(done) {
 			partType.GX5_amount = '';
 
@@ -82,7 +93,7 @@ describe('PartType Model Unit Tests:', function() {
 				done();
 			});
 		});
-		
+
 		it('should be able to save with a gx5_amount', function(done) {
 			partType.GX5_amount = '1';
 
@@ -91,7 +102,7 @@ describe('PartType Model Unit Tests:', function() {
 				done();
 			});
 		});
-		
+
 		it('should be able to show an error when try to save with an alphabetic gx_5 amount', function(done) {
 			partType.GX5_amount = 'hrf';
 
@@ -100,7 +111,7 @@ describe('PartType Model Unit Tests:', function() {
 				done();
 			});
 		});
-		
+
 		it('should be able to show an error when try to save without gx_35 amount', function(done) {
 			partType.GX35_amount = '';
 
@@ -109,7 +120,7 @@ describe('PartType Model Unit Tests:', function() {
 				done();
 			});
 		});
-		
+
 		it('should be able to show an error when try to save with an alphabetic gx_35 amount', function(done) {
 			partType.GX35_amount = 'hrf';
 
@@ -118,7 +129,7 @@ describe('PartType Model Unit Tests:', function() {
 				done();
 			});
 		});
-		
+
 		it('should be able to save with a gx_35 amount', function(done) {
 			partType.GX35_amount = '2';
 
@@ -127,7 +138,7 @@ describe('PartType Model Unit Tests:', function() {
 				done();
 			});
 		});
-		
+
 		it('should show an error when try to save without price', function(done) {
 			partType.price = '';
 
@@ -136,7 +147,7 @@ describe('PartType Model Unit Tests:', function() {
 				done();
 			});
 		});
-		
+
 		it('should show an error when try to save without category', function(done) {
 			partType.category = '';
 
