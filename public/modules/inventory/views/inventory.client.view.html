@@ -90,7 +90,11 @@
 						</span>
 						</td>
 						<td style="white-space:nowrap">
-							<span editable-number="partType.quantity" e-name="quantity" e-min="0" e-form="rowform" >
+							<span editable-number="partType.quantity" e-name="quantity" e-min="0" e-form="rowform" ng-if="!partType.hasSerialNmbr">
+								<a class="btn btn-default btn-xs" ng-class="{disabled: partType.quantity <= 0}" ng-click="updateQuantity(partType, partType.quantity - 1)">&minus;</a> {{partType.quantity}} <a class="btn btn-default btn-xs" ng-click="updateQuantity(partType, partType.quantity + 1)">&plus;</a>
+							</span>
+
+							<span ng-if="partType.hasSerialNmbr">
 								<a class="btn btn-default btn-xs" ng-class="{disabled: partType.quantity <= 0}" ng-click="updateQuantity(partType, partType.quantity - 1)">&minus;</a> {{partType.quantity}} <a class="btn btn-default btn-xs" ng-click="updateQuantity(partType, partType.quantity + 1)">&plus;</a>
 							</span>
 						</td>
