@@ -13,7 +13,7 @@ describe('Protractor testing on the inventory view', function() {
 		});		
 	});
 
-	describe('Inventory testing', function() {
+/*	describe('Inventory testing', function() {
 		var partType;
 		
 		beforeEach(function() {
@@ -490,4 +490,38 @@ describe('Protractor testing on the inventory view', function() {
 			expect(element(by.name('GX35_amount')).getAttribute('value')).toEqual(partTypeCabWir.GX35_amount);
 		})
 	})	
+*/
+	describe('Part with serial number', function() {
+		it('Check that a popup for a serial number occur and add a serial number', function() {
+			// clicks the inventory button
+			element.all(by.css('[class="list-unstyled action-list"]')).get(0).click();
+				
+			// verify that the button was click
+			browser.get('http://localhost:3000/#!/inventory').then(function() {
+				expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/inventory');
+			});
+				
+			// add an item that would require a serial number before updating quantity
+			element.all(by.model('partQuery')).sendKeys('Standard RadioProcessor W/ Potentiometer');
+			element.all(by.id('part-search')).click();
+				
+			// increment the quantity
+			browser.driver.actions().mouseMove(element(by.css('[ng-click="updateQuantity(partType, partType.quantity + 1)"]'))).perform();
+			element.all(by.css('[ng-click="updateQuantity(partType, partType.quantity + 1)"]')).then(function (elm) {
+				elm[0].click();
+			});
+			
+			// verify that a popup should occur
+			expect(element(by.css('[ng-submit="updateToMatch()"]')).isPresent()).toBe(true);
+
+			// input a serial number
+			element.all(by.model('$select.search')).sendKeys('TestSerialNum');
+			
+			// move mouse to click the submit button
+			browser.driver.actions().mouseMove(element(by.css('[class="btn"]'))).perform();
+			element.all(by.css('[class="btn"]')).then(function (elm) {
+				elm[0].click();
+			});
+		})
+	});
 })

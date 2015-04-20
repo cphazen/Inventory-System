@@ -60,7 +60,7 @@ describe('Protractor testing on the kit view', function() {
 			expect(browser.getCurrentUrl()).toEqual('http://localhost:3000/#!/kits/create');
 		})
 		
-/*		it('Adding GX-5 kit', function () {
+		it('Adding GX-5 kit', function () {
 		
 			// clicks the kit button
 			element.all(by.css('[class="btn btn-primary btn-md"]')).get(1).click();
@@ -331,6 +331,6 @@ describe('Protractor testing on the kit view', function() {
 				element.all(by.css('[ng-click="makeSystem(kit)"]')).then(function (elm) {
 					elm[0].click();
 			});
-		}); */
+		}); 
 	})
 })
