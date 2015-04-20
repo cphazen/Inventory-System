@@ -13,7 +13,7 @@ describe('Protractor testing on the system view', function() {
 		});			
 	});
 	
-	describe('Checking the system button', function() {
+	describe('Clicking the system button', function() {
 		it('Click the System button', function () {
 			// clicks the system button
 			element.all(by.css('[class="btn btn-primary btn-md"]')).get(2).click();
@@ -28,7 +28,7 @@ describe('Protractor testing on the system view', function() {
 	});
 	
 	describe('Header links', function() {
-		it('Return to the homepage from system view', function () {
+		it('Return to the homepage from system view and vice-versa', function () {
 			// clicks the system button
 			element.all(by.css('[class="btn btn-primary btn-md"]')).get(2).click();
 			
@@ -80,4 +80,8 @@ describe('Protractor testing on the system view', function() {
 			});
 		});
 	});
+	
+/*	describe('Complete testing from inventory to system', function() {
+
+	});*/
 })

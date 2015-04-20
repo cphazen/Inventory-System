@@ -41,7 +41,26 @@ describe('Protractor testing on the kit view', function() {
 			expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/kits');
 		});
 		
-		it('Adding GX-5 kit', function () {
+		it('Check if the create new part button is enable', function() {
+			// clicks the kit button
+			element.all(by.css('[class="btn btn-primary btn-md"]')).get(1).click();
+			
+			// verify that the button was click
+			browser.get('http://localhost:3000/#!/kits').then(function() {
+				expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/kits');
+			});
+			
+			// Move mouse over the create new button
+			browser.driver.actions().mouseMove(element(by.css('[class="btn btn-primary"]'))).perform();
+				element.all(by.css('[class="btn btn-primary"]')).then(function (elm) {
+					elm[0].click();
+			});
+			
+			// verify that the button lead to the create view 
+			expect(browser.getCurrentUrl()).toEqual('http://localhost:3000/#!/kits/create');
+		})
+		
+/*		it('Adding GX-5 kit', function () {
 		
 			// clicks the kit button
 			element.all(by.css('[class="btn btn-primary btn-md"]')).get(1).click();
@@ -236,7 +255,7 @@ describe('Protractor testing on the kit view', function() {
 			expect(browser.driver.getCurrentUrl()).toMatch('http://localhost:3000/#!/kits');		
 		});
 		
-		it('Change an incomplete kit to complete', function () {
+		it('Change an incomplete kit to complete kit', function () {
 			// clicks the kit button
 			element.all(by.css('[class="btn btn-primary btn-md"]')).get(1).click();
 			
@@ -280,7 +299,7 @@ describe('Protractor testing on the kit view', function() {
 				})
 		});	
 		
-		it('Make a kit into a system', function () {
+		it('Change a complete kit into a system', function () {
 		
 			// clicks the kit button
 			element.all(by.css('[class="btn btn-primary btn-md"]')).get(1).click();
@@ -312,6 +331,6 @@ describe('Protractor testing on the kit view', function() {
 				element.all(by.css('[ng-click="makeSystem(kit)"]')).then(function (elm) {
 					elm[0].click();
 			});
-		});
+		}); */
 	})
 })

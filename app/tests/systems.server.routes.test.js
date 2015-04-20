@@ -25,7 +25,7 @@ describe('System CRUD tests', function() {
         done();
 	});
 
-/*	it('should be able to get a list of system', function(done) {
+	it('should be able to get a list of system', function(done) {
 		// Create new system model instance
 		var systemObj = new system(sys);
 
@@ -43,7 +43,7 @@ describe('System CRUD tests', function() {
 
 		});
 	});
-*/	
+	
 	it('should return proper error for single system which doesnt exist', function(done) {
 		request(app).get('/systems/test')
 			.end(function(req, res) {
@@ -53,10 +53,5 @@ describe('System CRUD tests', function() {
 				// Call the assertion callback
 				done();
 			});
-	});
-	
-	afterEach(function(done) {
-		//sys.remove().exec();
-		done();
 	});
 });
