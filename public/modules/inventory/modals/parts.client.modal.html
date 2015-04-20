@@ -1,12 +1,12 @@
 
-<div class="modal-header"><h3>Add New Part</h3></div>
-<form name="partForm" ng-submit="create()" novalidate>
+<div class="modal-header"><h3>Update Serial Numbers</h3></div>
+<form name="partForm" ng-submit="updateToMatch()" novalidate>
     <fieldset>
         <div class="modal-body">
             <div class="form-group">
-                <label for="serialNmbr">Serial Number: </label>
-                <input class="form-control" data-ng-model="serialNmbr" type="text" name="serialNmbr" id="serialNmbr" ng-minlength="1" required/>
-                 <ui-select multiple tagging ng-model="serialNmbrs" theme="bootstrap">
+                <label for="serialNmbr">Serial Numbers: </label>
+                <!--<input class="form-control" data-ng-model="serialNmbr" type="text" name="serialNmbr" id="serialNmbr" ng-minlength="1" required/>-->
+                 <ui-select multiple tagging ng-model="sn.serialNmbrs" theme="bootstrap">
                     <ui-select-match placeholder="Select serial Number...">{{$item}}</ui-select-match>
                     <ui-select-choices repeat="n in [] | filter:$select.search">
                         {{n}}
@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn" ng-disabled="partForm.$invalid" >Submit</button>
+            <button type="submit" class="btn">Submit</button>
         </div>
     </fieldset>
 </form>
